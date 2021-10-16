@@ -30,6 +30,7 @@ class LoginViewModel extends BaseViewModel{
 
   init() async{
     isLocationEnabled = await locationInit();
+
     await getCurrentLocation();
     notifyListeners();
   }
