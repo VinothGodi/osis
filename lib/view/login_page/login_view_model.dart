@@ -38,11 +38,15 @@ class LoginViewModel extends BaseViewModel{
   submitLogin(BuildContext context) async{
 
     if(companyName.text.isEmpty){
+
       await locator<DialogService>().showDialog(description: "Fill the company name");
+
       return;
     }
     if(userName.text.isEmpty){
+
       await locator<DialogService>().showDialog(description: "Fill the user name");
+      
       return;
     }
     if(password.text.isEmpty){
