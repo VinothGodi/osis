@@ -2,8 +2,10 @@ class LeaveDetailModel {
   List<Data> ?data;
   int ?responseCode;
   String ?responseMessage;
+  String ?error;
 
-  LeaveDetailModel({this.data, this.responseCode, this.responseMessage});
+
+  LeaveDetailModel({this.data, this.error, this.responseCode, this.responseMessage});
 
   LeaveDetailModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
@@ -13,6 +15,7 @@ class LeaveDetailModel {
       });
     }
     responseCode = json['ResponseCode'];
+    error = json['error'];
     responseMessage = json['ResponseMessage'];
   }
 

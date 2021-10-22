@@ -2,8 +2,9 @@ class EmployeeHandbookModel {
   List<Data> ?data;
   int ?responseCode;
   String ?responseMessage;
+  String ?error;
 
-  EmployeeHandbookModel({this.data, this.responseCode, this.responseMessage});
+  EmployeeHandbookModel({this.data,this.error, this.responseCode, this.responseMessage});
 
   EmployeeHandbookModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
@@ -14,6 +15,8 @@ class EmployeeHandbookModel {
     }
     responseCode = json['ResponseCode'];
     responseMessage = json['ResponseMessage'];
+    error = json['error'];
+
   }
 
   Map<String, dynamic> toJson() {

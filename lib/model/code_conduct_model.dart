@@ -2,8 +2,9 @@ class CodeConductModel {
   List<Data> ?data;
   int ?responseCode;
   String ?responseMessage;
+  String ?error;
 
-  CodeConductModel({this.data, this.responseCode, this.responseMessage});
+  CodeConductModel({this.data,this.error, this.responseCode, this.responseMessage});
 
   CodeConductModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
@@ -13,6 +14,7 @@ class CodeConductModel {
       });
     }
     responseCode = json['ResponseCode'];
+    error = json['error'];
     responseMessage = json['ResponseMessage'];
   }
 

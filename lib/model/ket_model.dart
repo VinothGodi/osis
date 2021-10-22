@@ -2,8 +2,9 @@ class KetModel {
   List<Data> ?data;
   int ?responseCode;
   String ?responseMessage;
+  String ?error;
 
-  KetModel({this.data, this.responseCode, this.responseMessage});
+  KetModel({this.data, this.error, this.responseCode, this.responseMessage});
 
   KetModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
@@ -13,6 +14,7 @@ class KetModel {
       });
     }
     responseCode = json['ResponseCode'];
+    error = json['error'];
     responseMessage = json['ResponseMessage'];
   }
 

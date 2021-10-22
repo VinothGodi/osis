@@ -2,8 +2,10 @@ class EAnnounceModel {
   List<Data> ?data;
   int ?responseCode;
   String ?responseMessage;
+  String ?error;
 
-  EAnnounceModel({this.data, this.responseCode, this.responseMessage});
+
+  EAnnounceModel({this.data, this.error,this.responseCode, this.responseMessage});
 
   EAnnounceModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
@@ -13,6 +15,7 @@ class EAnnounceModel {
       });
     }
     responseCode = json['ResponseCode'];
+    error = json['error'];
     responseMessage = json['ResponseMessage'];
   }
 

@@ -3,8 +3,9 @@ class KetDocApi {
   String ?kETID;
   int ?responseCode;
   String ?responseMessage;
+  String ?error;
 
-  KetDocApi({this.data, this.kETID, this.responseCode, this.responseMessage});
+  KetDocApi({this.data, this.error,this.kETID, this.responseCode, this.responseMessage});
 
   KetDocApi.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
@@ -15,6 +16,7 @@ class KetDocApi {
     }
     kETID = json['KETID'];
     responseCode = json['ResponseCode'];
+    error = json['error'];
     responseMessage = json['ResponseMessage'];
   }
 

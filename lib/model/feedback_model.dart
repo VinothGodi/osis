@@ -2,8 +2,9 @@ class FeedBackModel {
   List<Data> ?data;
   int ?responseCode;
   String ?responseMessage;
+  String ?error;
 
-  FeedBackModel({this.data, this.responseCode, this.responseMessage});
+  FeedBackModel({this.data, this.error,this.responseCode, this.responseMessage});
 
   FeedBackModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
@@ -13,6 +14,7 @@ class FeedBackModel {
       });
     }
     responseCode = json['ResponseCode'];
+    error = json['error'];
     responseMessage = json['ResponseMessage'];
   }
 

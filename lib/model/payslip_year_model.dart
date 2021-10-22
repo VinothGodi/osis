@@ -2,8 +2,10 @@ class PaySlipYearModel {
   List<Data> ?data;
   int ?responseCode;
   String ?responseMessage;
+  String ?error;
+  
 
-  PaySlipYearModel({this.data, this.responseCode, this.responseMessage});
+  PaySlipYearModel({this.data, this.error, this.responseCode, this.responseMessage});
 
   PaySlipYearModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
@@ -14,6 +16,7 @@ class PaySlipYearModel {
     }
     responseCode = json['ResponseCode'];
     responseMessage = json['ResponseMessage'];
+    error = json['error'];
   }
 
   Map<String, dynamic> toJson() {

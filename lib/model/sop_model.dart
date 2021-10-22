@@ -1,9 +1,10 @@
 class SopModel {
   List<Data> ?data;
   int ?responseCode;
+  String ?error;
   String ?responseMessage;
 
-  SopModel({this.data, this.responseCode, this.responseMessage});
+  SopModel({this.data, this.error, this.responseCode, this.responseMessage});
 
   SopModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
@@ -13,6 +14,7 @@ class SopModel {
       });
     }
     responseCode = json['ResponseCode'];
+    error = json['error'];
     responseMessage = json['ResponseMessage'];
   }
 
@@ -22,6 +24,7 @@ class SopModel {
       data['data'] = this.data?.map((v) => v.toJson()).toList();
     }
     data['ResponseCode'] = this.responseCode;
+    data['error'] = this.error;
     data['ResponseMessage'] = this.responseMessage;
     return data;
   }

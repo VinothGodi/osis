@@ -1,9 +1,10 @@
 class RewardsModel {
   List<Data> ?data;
   int ?responseCode;
+  String ?error;
   String ?responseMessage;
 
-  RewardsModel({this.data, this.responseCode, this.responseMessage});
+  RewardsModel({this.data, this.error, this.responseCode, this.responseMessage});
 
   RewardsModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
@@ -13,6 +14,7 @@ class RewardsModel {
       });
     }
     responseCode = json['ResponseCode'];
+    error = json['error'];
     responseMessage = json['ResponseMessage'];
   }
 

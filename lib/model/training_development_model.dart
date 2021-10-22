@@ -2,9 +2,10 @@ class TrainingDevelopmentModel {
   List<Data> ?data;
   int ?responseCode;
   String ?responseMessage;
+  String ?error;
 
   TrainingDevelopmentModel(
-      {this.data, this.responseCode, this.responseMessage});
+      {this.data, this.responseCode, this.error, this.responseMessage});
 
   TrainingDevelopmentModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
@@ -14,6 +15,7 @@ class TrainingDevelopmentModel {
       });
     }
     responseCode = json['ResponseCode'];
+    error = json['error'];
     responseMessage = json['ResponseMessage'];
   }
 
