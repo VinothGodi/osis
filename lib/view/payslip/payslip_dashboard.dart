@@ -21,7 +21,7 @@ class _PaySlipDashboardState extends State<PaySlipDashboard> {
     return BaseView<PayslipViewModel>(
         onModelReady: (viewModel) async {
 
-          await viewModel.init();
+          await viewModel.init(context);
 
         },
         builder: (context, model, child) =>Scaffold(

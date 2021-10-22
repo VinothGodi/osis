@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:osis/core/enums/viewstate.dart';
 import 'package:osis/core/res/colors.dart';
 import 'package:osis/core/res/spacing.dart';
@@ -6,6 +7,7 @@ import 'package:osis/core/res/styles.dart';
 import 'package:osis/model/rewards_model.dart';
 import 'package:osis/widgets/base_view.dart';
 import 'package:osis/widgets/network_image_view.dart';
+import 'package:osis/widgets/pdf_viewer.dart';
 
 import 'rewars_view_model.dart';
 
@@ -22,7 +24,7 @@ class _RewardsPageState extends State<RewardsPage> {
     // TODO: implement build
     return BaseView<RewardsViewModel>(
         onModelReady: (viewModel) async {
-          await viewModel.init();
+          await viewModel.init(context);
 
 
 
@@ -88,10 +90,15 @@ class _RewardsPageState extends State<RewardsPage> {
               new Text("${data?.rewardtype}",textScaleFactor: 1,style: AppTextStyle.subtitle10,),
               VerticalSpacing.d10px(),
 
-             new Row(
+              new Text("${data?.remarks}",textScaleFactor: 1,style: AppTextStyle.subtitle9,overflow: TextOverflow.ellipsis,),
+
+              VerticalSpacing.d10px(),
+
+
+              new Row(
                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                children: [
-                 new Text("${data?.remarks}",textScaleFactor: 1,style: AppTextStyle.subtitle9,),
+
                  InkWell(
                      onTap:(){
                        if(data!.rewardimage!.isEmpty){
@@ -105,6 +112,29 @@ class _RewardsPageState extends State<RewardsPage> {
 
                      },
                      child: new Text("IMAGE",textScaleFactor: 1,style: AppTextStyle.subtitle10,)),
+                 InkWell(
+                     onTap:(){
+                       if(data!.rewarddocument!.isEmpty){
+                           Fluttertoast.showToast(
+                               msg: "No Document",
+                               toastLength: Toast.LENGTH_SHORT,
+                               gravity:  ToastGravity.BOTTOM,
+                               timeInSecForIosWeb: 1,
+                               backgroundColor: Colors.black54,
+                               textColor: Colors.white,
+                               fontSize: 14.0
+                           );
+                         return;
+                       }
+                       Navigator.push(
+                         context,
+                         MaterialPageRoute(builder: (context) => PDdfViewer(data.rewarddocument,"Document")),
+                       );
+
+
+
+                     },
+                     child: new Text("Document",textScaleFactor: 1,style: AppTextStyle.subtitle10,)),
                ],
              ),
 

@@ -22,7 +22,7 @@ class _DocumentEmployeeHandbookState extends State<DocumentEmployeeHandbook> {
     return BaseView<DocumentViewModel>(
         onModelReady: (viewModel) async {
 
-          await viewModel.employeeHandBookApi();
+          await viewModel.employeeHandBookApi(context);
 
         },
         builder: (context, model, child) =>Scaffold(

@@ -27,7 +27,7 @@ class _PaySlipPageState extends State<PaySlipPage> {
     return BaseView<PayslipViewModel>(
         onModelReady: (viewModel) async {
 
-          await viewModel.paySlipInit(widget.year);
+          await viewModel.paySlipInit(widget.year,context);
 
         },
         builder: (context, model, child) =>Scaffold(

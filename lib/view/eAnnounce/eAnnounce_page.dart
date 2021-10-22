@@ -21,7 +21,7 @@ class _EAnnouncePageState extends State<EAnnouncePage> {
     // TODO: implement build
     return BaseView<EAnnounceViewModel>(
         onModelReady: (viewModel) async {
-          await viewModel.init();
+          await viewModel.init(context);
 
 
 

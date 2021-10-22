@@ -24,7 +24,7 @@ class _DocumentKetState extends State<DocumentKet> {
     return BaseView<DocumentViewModel>(
         onModelReady: (viewModel) async {
 
-         await viewModel.documentKetInit();
+         await viewModel.documentKetInit(context);
 
 
         },
@@ -61,7 +61,7 @@ class _DocumentKetState extends State<DocumentKet> {
       onTap: () async {
         Dialogs.showLoadingDialog(context, _keyLoader);
 
-        await model.getKetDoc(data?.kETID);
+        await model.getKetDoc(data?.kETID,context);
 
         Navigator.of(context,rootNavigator: true).pop();
 

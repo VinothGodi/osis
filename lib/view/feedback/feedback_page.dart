@@ -7,7 +7,9 @@ import 'package:osis/core/res/colors.dart';
 import 'package:osis/core/res/images.dart';
 import 'package:osis/core/res/spacing.dart';
 import 'package:osis/core/res/styles.dart';
+import 'package:osis/locator.dart';
 import 'package:osis/model/feedback_model.dart';
+import 'package:osis/service/shared/dialog_service.dart';
 import 'package:osis/widgets/alert_dialog.dart';
 import 'package:osis/widgets/base_view.dart';
 import 'package:osis/widgets/button.dart';
@@ -29,57 +31,65 @@ class _FeedBackPageState extends State<FeedBackPage> {
     // TODO: implement build
     return BaseView<FeedbackViewModel>(
         onModelReady: (viewModel) async {
-      await  viewModel.init();
+      await  viewModel.init(context);
     },
-    builder: (context, model, child) =>Scaffold(
-      backgroundColor: AppColor.backgroundAll,
-      appBar: AppBar(
-        backgroundColor: AppColor.primaryBlue,
-        centerTitle: true,
-        leading: IconButton(onPressed: (){
-          Navigator.pop(context);
-        }, icon: Icon(Icons.arrow_back_ios,color: AppColor.white,)),
-        title: new Text("FeedBack",textScaleFactor: 1,style: AppTextStyle.mediumWhiteBold.copyWith(fontSize: 18)),
+        onModelDisposed: (viewModel){
+        },
+    builder: (context, model, child) =>WillPopScope(
+      onWillPop: () async{
+        return model.state == ViewState.Busy?false:true;
+      },
+      child: Scaffold(
+        backgroundColor: AppColor.backgroundAll,
+        appBar: AppBar(
+          backgroundColor: AppColor.primaryBlue,
+          centerTitle: true,
+          leading: IconButton(onPressed: (){
 
-      ),
-      body: DefaultTabController(
-        length: 2,
+            Navigator.pop(context);
+          }, icon: Icon(Icons.arrow_back_ios,color: AppColor.white,)),
+          title: new Text("FeedBack",textScaleFactor: 1,style: AppTextStyle.mediumWhiteBold.copyWith(fontSize: 18)),
 
-        child: Column(
-          children: <Widget>[
-            Container(
-              constraints: BoxConstraints.expand(height: 50),
-              child: TabBar(
-                  tabs: [
-                Tab(text: "LISTS"),
-                Tab(text: "CREATE"),
-              ],
-                indicatorColor:AppColor.primaryBlue
-              ),
-            ),
-            Expanded(
-              child: Container(
-                child: TabBarView(children: [
-                  model.state == ViewState.Busy?Center(child: CircularProgressIndicator()):  model.feedBackModel?.data==null?Center(child:
-                  new Text("No Data",textScaleFactor: 1,),): ListView.builder(
-                      shrinkWrap: true,
-                      primary: false,
-                      itemCount: model.feedBackModel?.data?.length,
-
-                      itemBuilder: (BuildContext context,int index){
-
-                        return feedBackList(model.feedBackModel?.data?[index]);
-
-                      }),
-                  feedBackCreate(model,context),
-
-                ]),
-              ),
-            )
-          ],
         ),
-      ),
+        body: DefaultTabController(
+          length: 2,
 
+          child: Column(
+            children: <Widget>[
+              Container(
+                constraints: BoxConstraints.expand(height: 50),
+                child: TabBar(
+                    tabs: [
+                  Tab(text: "LISTS"),
+                  Tab(text: "CREATE"),
+                ],
+                  indicatorColor:AppColor.primaryBlue
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  child: TabBarView(children: [
+                    model.state == ViewState.Busy?Center(child: CircularProgressIndicator()):  model.feedBackModel?.data==null?Center(child:
+                    new Text("No Data",textScaleFactor: 1,),): ListView.builder(
+                        shrinkWrap: true,
+                        primary: false,
+                        itemCount: model.feedBackModel?.data?.length,
+
+                        itemBuilder: (BuildContext context,int index){
+
+                          return feedBackList(model.feedBackModel?.data?[index]);
+
+                        }),
+                    feedBackCreate(model,context),
+
+                  ]),
+                ),
+              )
+            ],
+          ),
+        ),
+
+      ),
     ));
   }
 
@@ -277,11 +287,27 @@ class _FeedBackPageState extends State<FeedBackPage> {
                   // borderRadius: BorderRadius.circular(50),
                   color: Colors.green,
                   onPressed: () async {
+                    if(model.myFeedBackType==null){
+                      await locator<DialogService>().showDialog(description: "Please select the feedbacktype");
+                      return;
+                    }
+                    if(model.selectedDate==""){
+                      await locator<DialogService>().showDialog(description: "Please select the date");
+                      return;
+                    }
+
+
+                    if(model.descriptionController.text.isEmpty){
+                      await locator<DialogService>().showDialog(description: "Please enter the description");
+                      return;
+                    }
 
                     Dialogs.showLoadingDialog(context, _keyLoader);
                      await  model.submitFeedBack(context);
                     FocusScope.of(context).requestFocus(new FocusNode());
                     Navigator.of(context,rootNavigator: true).pop();
+
+
                   }, key: Key("Submit")),
             ],
           )

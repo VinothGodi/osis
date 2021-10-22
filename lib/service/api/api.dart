@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:osis/model/code_conduct_model.dart';
 import 'package:osis/model/eannounce_model.dart';
 import 'package:osis/model/employee_handbook_model.dart';
+import 'package:osis/model/feedback_create_model.dart';
 import 'package:osis/model/feedback_model.dart';
 import 'package:osis/model/ket_doc_model.dart';
 import 'package:osis/model/ket_model.dart';
@@ -217,27 +218,57 @@ class Api extends ApiBase {
 
 
 
-  Future<dynamic> feedBackCreateApi(File? image,String feedbackDate,String feedBackType,String description) async {
+/*
+  Future<FeedBackCreateModel> feedBackCreateApi(File? image,String feedbackDate,String feedBackType,String description) async {
+    LoginModel ?loginModel = await preferenceService.getUserData();
 
     String baseUrl ="http://lmsapi.awnsys.net:88//api/efeedback/save";
     var uri = Uri.parse(baseUrl);
-
+    Map<String, String> headers = { "Content-Type": "application/x-www-form-urlencoded",
+      "Authorization": "Bearer ${loginModel?.accessToken}",};
     var request = new http.MultipartRequest("POST", uri);
+
+    request.headers.addAll(headers);
     request.fields['feedbackdate'] = feedbackDate;
     request.fields['feedbackType'] = feedBackType;
     request.fields['description'] = description;
 
 
-    request.files.add(await http.MultipartFile.fromPath("feedbackImage", image!.path,));
+    //request.files.add(await http.MultipartFile.fromPath("feedbackImage", image!.path,));
 
     print(request.fields);
 
     var response = await request.send();
     var responseBody = await response.stream.bytesToString();
-
-    return responseBody;
+print(json.decode(responseBody));
+    return FeedBackCreateModel.fromJson(json.decode(responseBody));
 
 
 
   }
+
+*/
+
+  Future<FeedBackCreateModel?> feedBackCreateApi(File? image,String feedbackDate,String feedBackType,String description) async {
+
+    Map<String, dynamic> params = new Map();
+    params['feedbackdate'] = feedbackDate;
+    params['feedbackType'] = feedBackType;
+    params['description'] = description;
+
+
+
+
+    print(params);
+
+    final response = await sendAsync(ApiMethod.POST, 'http://lmsapi.awnsys.net:88//api/efeedback/save', params,authentication: true);
+    if (response!=null){
+
+      return FeedBackCreateModel.fromJson(json.decode(response.body));
+    }
+    return null;
+
+  }
+
+
 }

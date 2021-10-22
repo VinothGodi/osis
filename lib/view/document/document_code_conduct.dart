@@ -22,7 +22,7 @@ class _DocumentCodeState extends State<DocumentCodeConduct> {
     return BaseView<DocumentViewModel>(
         onModelReady: (viewModel) async {
 
-          await viewModel.codeConductInit();
+          await viewModel.codeConductInit(context);
 
         },
         builder: (context, model, child) =>Scaffold(

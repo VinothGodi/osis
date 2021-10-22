@@ -5,10 +5,12 @@ import 'package:image_picker/image_picker.dart';
 import 'package:osis/core/enums/viewstate.dart';
 import 'package:osis/core/res/spacing.dart';
 import 'package:osis/helper/base_view_model.dart';
+import 'package:osis/model/feedback_create_model.dart';
 import 'package:osis/model/feedback_model.dart';
 import 'package:osis/service/shared/dialog_service.dart';
 
 import '../../locator.dart';
+import '../../router.dart';
 import 'feedback_page.dart';
 
 
@@ -18,6 +20,7 @@ class FeedbackViewModel extends BaseViewModel{
   DateTime now = DateTime.now();
   String selectedDate="";
   File? feedBackImage;
+  FeedBackCreateModel ?response;
   ImagePicker picker = ImagePicker();
 
   TextEditingController descriptionController= new TextEditingController();
@@ -26,11 +29,21 @@ class FeedbackViewModel extends BaseViewModel{
 
 
 
-  init() async{
+  init(BuildContext context) async{
 
   setState(ViewState.Busy);
 
   feedBackModel = await api.getFeedbackApi();
+
+  if(feedBackModel?.responseCode==400){
+
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil(Routes.login, (Route<dynamic> route) => false);
+    return;
+
+  }
+
+
   feedBackType.add(new FeedBackType("Suggestions"));
     
   setState(ViewState.Idle);
@@ -170,26 +183,35 @@ class FeedbackViewModel extends BaseViewModel{
 
   submitFeedBack(BuildContext context) async{
 
-    if(myFeedBackType==null){
-      await locator<DialogService>().showDialog(description: "Please select the feedbacktype");
-      return;
-    }
-    if(selectedDate==""){
-      await locator<DialogService>().showDialog(description: "Please select the date");
-      return;
-    }
 
 
-    if(descriptionController.text.isEmpty){
-      await locator<DialogService>().showDialog(description: "Please enter the description");
-      return;
-    }
-
-    if(feedBackImage==null){
+  /*  if(feedBackImage==null){
       await locator<DialogService>().showDialog(description: "Please select the image");
       return;
+    }*/
+
+    setState(ViewState.Busy);
+     response=  await api.feedBackCreateApi(feedBackImage,selectedDate,myFeedBackType!.name,descriptionController.text);
+
+
+    if(response?.responseCode==400){
+      setState(ViewState.Idle);
+
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil(Routes.login, (Route<dynamic> route) => false);
+      return;
+
     }
-    await api.feedBackCreateApi(feedBackImage,selectedDate,myFeedBackType!.name,descriptionController.text);
+
+
+    if(response?.responseCode==201){
+      setState(ViewState.Idle);
+      Navigator.of(context,rootNavigator: true).pop();
+
+      await locator<DialogService>().showDialog(description: response!.responseMessage.toString());
+      Navigator.pop(context);
+    }
+
 
 
   }

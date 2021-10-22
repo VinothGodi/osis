@@ -53,7 +53,7 @@ class Data {
     feedbackdate = json['feedbackdate'];
     feedbackimage = json['feedbackimage'];
     feedbacktype = json['feedbacktype'];
-    description = json['Description'];
+    description = json['Description']==null||json['Description']==""?"-----":json['Description'];
     employeename = json['employeename'];
     deploymentname = json['deploymentname'];
   }

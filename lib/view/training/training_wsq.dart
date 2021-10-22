@@ -21,7 +21,7 @@ class _TrainingWSQState extends State<TrainingWSQ> {
     // TODO: implement build
     return BaseView<TrainingViewModel>(
         onModelReady: (viewModel) async {
-          await viewModel.developmentWsq();
+          await viewModel.developmentWsq(context);
           },
         builder: (context, model, child) =>Scaffold(
           backgroundColor: AppColor.backgroundAll,

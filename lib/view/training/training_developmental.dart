@@ -20,7 +20,7 @@ class _TrainingDevelopmentalState extends State<TrainingDevelopmental> {
     // TODO: implement build
     return BaseView<TrainingViewModel>(
         onModelReady: (viewModel) async {
-         await viewModel.developmentInit();
+         await viewModel.developmentInit(context);
 
 
 

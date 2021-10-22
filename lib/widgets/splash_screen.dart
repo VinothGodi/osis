@@ -39,7 +39,8 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void navigationPage() {
-    //sLogin!.isEmpty?Routes.authentication:
+    //sLogin!.isEmpty?Routes.authentication;
+    print(loginModel?.accessToken);
     Navigator.pushReplacementNamed(context,loginModel?.accessToken==null?Routes.login:Routes.dashboard);
 
 

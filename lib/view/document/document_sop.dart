@@ -21,7 +21,7 @@ class _DocumentSopState extends State<DocumentSop> {
     return BaseView<DocumentViewModel>(
         onModelReady: (viewModel) async {
 
-          await viewModel.init();
+          await viewModel.init(context);
 
         },
         builder: (context, model, child) =>Scaffold(

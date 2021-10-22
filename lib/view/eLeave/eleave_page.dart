@@ -22,7 +22,7 @@ class _ELeavePageState extends State<ELeavePage> {
     // TODO: implement build
     return BaseView<ELeaveViewModel>(
         onModelReady: (viewModel) async {
-          await  viewModel.init();
+          await  viewModel.init(context);
         },
         builder: (context, model, child) =>Scaffold(
           backgroundColor: AppColor.backgroundAll,

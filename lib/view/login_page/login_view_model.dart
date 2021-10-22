@@ -46,7 +46,7 @@ class LoginViewModel extends BaseViewModel{
     if(userName.text.isEmpty){
 
       await locator<DialogService>().showDialog(description: "Fill the user name");
-      
+
       return;
     }
     if(password.text.isEmpty){
