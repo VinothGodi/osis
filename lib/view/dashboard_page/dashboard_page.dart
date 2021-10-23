@@ -5,8 +5,11 @@ import 'package:osis/core/res/colors.dart';
 import 'package:osis/core/res/spacing.dart';
 import 'package:osis/core/res/styles.dart';
 import 'package:osis/model/dashboard_model.dart';
+import 'package:osis/service/shared/alert_service/alert_response.dart';
+import 'package:osis/service/shared/dialog_service.dart';
 import 'package:osis/widgets/base_view.dart';
 
+import '../../locator.dart';
 import '../../router.dart';
 import 'dashboard_view_model.dart';
 
@@ -33,7 +36,20 @@ class _DashBoardPageState extends State<DashBoardPage> {
         title: new Text("Awnsys Technologies",textScaleFactor: 1,style: AppTextStyle.mediumWhiteBold.copyWith(fontSize: 18)),
         actions: [
           IconButton(
-            icon: Icon(Icons.power_settings_new_rounded,color: AppColor.white,), onPressed: () {  },
+            icon: Icon(Icons.power_settings_new_rounded,color: AppColor.white,), onPressed: ()  async{
+
+            AlertResponse alertResponse = await  locator<DialogService>().showConfirmationAlertDialog(title: "Information",subtitle:"Are you sure you want to log out ?",secondaryButton: "Cancel");
+
+            if( alertResponse.status ==true) {
+
+              model.preferenceService.clearData();
+
+
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil(Routes.login, (Route<dynamic> route) => false);
+
+          }
+          },
           ),
           HorizontalSpacing.d10px(),
         ],
@@ -69,12 +85,12 @@ class _DashBoardPageState extends State<DashBoardPage> {
             VerticalSpacing.d15px(),
 
             Wrap(
-                runSpacing: 30,
-                spacing: 20,
+                runSpacing: 28,
+                spacing: 10,
                 children: model.dashboardModel!.map((item) {
                   return new GestureDetector(
                     child: Container(
-                        width: (MediaQuery.of(context).size.width / 2.9) - 30,
+                        width: (MediaQuery.of(context).size.width / 2.7) - 30,
                         padding: EdgeInsets.all(10),
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -104,7 +120,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
                                     textScaleFactor: 1,overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                         color: AppColor.primaryBlue,
-                                        fontSize: 16),
+                                        fontSize: 15),
                                   )
                                 ]),
                             Container(),

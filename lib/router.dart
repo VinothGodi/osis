@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:osis/view/document/document_dashboard.dart';
+import 'package:osis/view/eAnnounce/eannounce_image.dart';
 import 'package:osis/widgets/splash_screen.dart';
 
 import 'service/shared/network_check.dart';
@@ -10,6 +11,7 @@ import 'view/document/document_employee_handbook.dart';
 import 'view/document/document_ket.dart';
 import 'view/document/document_sop.dart';
 import 'view/eAnnounce/eAnnounce_page.dart';
+import 'view/eAnnounce/eannounce_pdf.dart';
 import 'view/eLeave/eleave_page.dart';
 import 'view/feedback/feedback_page.dart';
 import 'view/login_page/login_page.dart';
@@ -46,6 +48,8 @@ class Routes {
   static const String documentKet = "documentKet";
   static const String trainingWSQ = "trainingWSQ";
   static const String eAnnouncePage = "eAnnouncePage";
+  static const String eAnnouncePDFPage = "eAnnouncePDFPage";
+  static const String eAnnounceImagePage = "eAnnounceImagePage";
 
 
 
@@ -128,6 +132,17 @@ class AppRouter {
         var data = settings.arguments as String;
         return MaterialPageRoute(
             builder: (_) => PaySlipPage(data));
+
+
+      case Routes.eAnnouncePDFPage:
+        var data = settings.arguments as String;
+        return MaterialPageRoute(
+            builder: (_) => EAnnouncePDFPage(data));
+
+      case Routes.eAnnounceImagePage:
+        var data = settings.arguments as String;
+        return MaterialPageRoute(
+            builder: (_) => EAnnounceImagePage(data));
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

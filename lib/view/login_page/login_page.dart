@@ -14,6 +14,7 @@ class LoginPage extends StatefulWidget{
 }
 
 class _LoginPageState extends State<LoginPage> {
+ bool  passwordVisible = false;
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -92,10 +93,27 @@ class _LoginPageState extends State<LoginPage> {
               child: TextField(
                 controller: model.password,
                 autocorrect: false,
+                obscureText: !passwordVisible,
                 focusNode: model.passwordFocus,
 
                 decoration: InputDecoration(
                   hintText: 'PASSWORD',
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      // Based on passwordVisible state choose the icon
+                      passwordVisible
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                      color: Colors.black
+                    ),
+                    onPressed: () {
+                      // Update the state i.e. toogle the state of passwordVisible variable
+                      setState(() {
+                        passwordVisible = !passwordVisible;
+                      });
+                    },
+                  ),
+
                   hintStyle: TextStyle(fontSize: 14),
                   contentPadding:  EdgeInsets.symmetric(vertical: 15.0,horizontal: 15),
                   filled: true,

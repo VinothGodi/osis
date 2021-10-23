@@ -4,6 +4,7 @@ import 'package:osis/core/enums/viewstate.dart';
 import 'package:osis/core/res/colors.dart';
 import 'package:osis/core/res/spacing.dart';
 import 'package:osis/core/res/styles.dart';
+import 'package:osis/model/eleave_status_model.dart';
 import 'package:osis/model/leave_detail_model.dart';
 import 'package:osis/widgets/base_view.dart';
 import 'package:osis/widgets/network_image_view.dart';
@@ -65,9 +66,17 @@ class _ELeavePageState extends State<ELeavePage> {
                             return leaveDetailList(model.leaveDetailModel?.data?[index]);
 
                           }),
-                      Container(
-                        child: Text("Create"),
-                      ),
+                      model.state == ViewState.Busy?Center(child: CircularProgressIndicator()):  model.eLeaveStatusModel?.data==null?Center(child:
+                      new Text("No Data",textScaleFactor: 1,),): ListView.builder(
+                          shrinkWrap: true,
+                          primary: false,
+                          itemCount: model.eLeaveStatusModel?.data?.length,
+
+                          itemBuilder: (BuildContext context,int index){
+
+                            return leaveStatusList(model.eLeaveStatusModel?.data?[index]);
+
+                          }),
                       Container(
                         child: Text("Create"),
                       ),
@@ -116,6 +125,49 @@ class _ELeavePageState extends State<ELeavePage> {
             new Text("Pending Leave ${data?.pendingleave}",textScaleFactor: 1,style: AppTextStyle.subtitle9,),
 
 
+
+
+
+
+
+          ],
+        )
+    );
+
+  }
+
+
+
+  leaveStatusList(StatusData? data){
+
+    return Container(
+        width: double.infinity,
+        margin: EdgeInsets.only(top: 15,left: 15,right: 15,bottom: 10),
+        padding: EdgeInsets.all(15),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(color: AppColor.black.withOpacity(0.1)),
+
+        ),
+        child:Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+
+
+            new Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                new Text("${data?.name}",textScaleFactor: 1,style: AppTextStyle.subtitle10,),
+                new Text("${data?.status}",textScaleFactor: 1,style:
+                AppTextStyle.subtitle6.copyWith(color:data?.status=="Approved"?AppColor.green:AppColor.red),),
+              ],
+            ),
+
+            VerticalSpacing.d10px(),
+            new Text("Period ${data?.startDate} - ${data?.endDate}",textScaleFactor: 1,style: AppTextStyle.subtitle6,),
+            VerticalSpacing.d10px(),
+            new Text("Total Days : ${data?.noofdays}",textScaleFactor: 1,style: AppTextStyle.subtitle6,),
 
 
 

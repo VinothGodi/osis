@@ -3,27 +3,33 @@ import 'package:osis/core/enums/viewstate.dart';
 import 'package:osis/core/res/colors.dart';
 import 'package:osis/core/res/spacing.dart';
 import 'package:osis/core/res/styles.dart';
-import 'package:osis/model/eannounce_model.dart';
 import 'package:osis/widgets/base_view.dart';
+import 'package:osis/widgets/pdf_viewer.dart';
+
+import 'eAnnounce_view_model.dart';
 import 'package:osis/model/ennounce_pdf_model.dart';
 
-import '../../router.dart';
-import 'eAnnounce_view_model.dart';
 
-class EAnnouncePage extends StatefulWidget{
+class EAnnouncePDFPage extends StatefulWidget{
+
+  String id;
+
+
+  EAnnouncePDFPage(this.id);
 
   @override
-  _EAnnouncePageState createState() => _EAnnouncePageState();
+  _EAnnouncePDFPageState createState() => _EAnnouncePDFPageState();
 }
 
-class _EAnnouncePageState extends State<EAnnouncePage> {
+class _EAnnouncePDFPageState extends State<EAnnouncePDFPage> {
   @override
   Widget build(BuildContext context) {
 
     // TODO: implement build
     return BaseView<EAnnounceViewModel>(
         onModelReady: (viewModel) async {
-          await viewModel.init(context);
+
+          await viewModel.getEAnnouncePDF(widget.id);
 
 
 
@@ -44,22 +50,25 @@ class _EAnnouncePageState extends State<EAnnouncePage> {
               new Text("No Data",textScaleFactor: 1,),):ListView.builder(
                   shrinkWrap: true,
                   primary: false,
-                  itemCount: model.eAnnounceModel?.data?.length,
+                  itemCount: model.eAnnouncePdfModel?.data?.length,
 
                   itemBuilder: (BuildContext context,int index){
 
-                    return codeConductWidget(model.eAnnounceModel?.data?[index], context);
+                    return eAnnouncePdfWidget(model.eAnnouncePdfModel?.data?[index],context);
 
                   })
           ),
 
         ));
   }
-  codeConductWidget(Data? data, BuildContext context){
+  eAnnouncePdfWidget(EAnnouncePDFData? data,BuildContext context){
 
     return GestureDetector(
       onTap: (){
-
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => PDdfViewer(data?.aImage,data?.fileName)),
+        );
       },
       child: Container(
           width: double.infinity,
@@ -75,44 +84,21 @@ class _EAnnouncePageState extends State<EAnnouncePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              new Text("Order No : ${data?.orderno}",textScaleFactor: 1,style:
+              AppTextStyle.subtitle6),
+
+              VerticalSpacing.d5px(),
 
               new Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  new Text("${data?.date} ${data?.day} ${data?.year}",textScaleFactor: 1,style: AppTextStyle.subtitle6,),
-                  new Text("${data?.priority}",textScaleFactor: 1,style:
+                  Icon(Icons.picture_as_pdf,color: AppColor.primaryBlue,),
+                  HorizontalSpacing.d10px(),
+                  new Text("${data?.fileName}",textScaleFactor: 1,style:
                   AppTextStyle.subtitle6.copyWith(color:AppColor.green),),
                 ],
               ),
 
-              VerticalSpacing.d10px(),
-              new Text("${data?.ancetitle}",textScaleFactor: 1,style: AppTextStyle.subtitle10,),
-              VerticalSpacing.d10px(),
-              new Text("${data?.description}",textScaleFactor: 1,style: AppTextStyle.subtitle6,),
-              VerticalSpacing.d15px(),
-
-             new Row(
-               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-               children: [
-                 InkWell(
-                   onTap:(){
-                     Navigator.pushNamed(context, Routes.eAnnounceImagePage,arguments:data?.ancecode );
-                   },
-                   child: Container(
-                       child: new Text("Image : ${data?.imageCount}",textScaleFactor: 1,style: AppTextStyle.subtitle9,)),
-                 ),
-
-
-                InkWell(
-                  onTap:(){
-                    Navigator.pushNamed(context, Routes.eAnnouncePDFPage,arguments:data?.ancecode );
-                  },
-                  child: Container(
-                    child:  new Text("Pdf : ${data?.pdfCount}",textScaleFactor: 1,style: AppTextStyle.subtitle9,),
-                  ),
-                )
-               ],
-             )
 
 
 

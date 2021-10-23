@@ -37,15 +37,16 @@ class DialogService {
 
 
 
-  Future<AlertResponse> showConfirmationAlertDialog({required String image, required String title, required String subtitle, String primaryButton = 'OK', required String secondaryButton, bool dismissable = true}) {
+  Future<AlertResponse> showConfirmationAlertDialog({ required String title, required String subtitle, String primaryButton = 'OK', required String secondaryButton, bool dismissable = true}) {
     _dialogCompleter = Completer<AlertResponse>();
     _showConfirmationDialogListener!(AlertRequest(
-        image: image,
+        //image: image,
         description: subtitle,
         buttonTitle: primaryButton,
         secondaryButtonTitle: secondaryButton,
         title: title,
-      dismissable: dismissable
+      dismissable: dismissable,
+
     ));
 
     return _dialogCompleter!.future;

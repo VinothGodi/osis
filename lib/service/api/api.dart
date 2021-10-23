@@ -2,8 +2,11 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:osis/model/code_conduct_model.dart';
+import 'package:osis/model/eannounce_imge_model.dart';
 import 'package:osis/model/eannounce_model.dart';
+import 'package:osis/model/eleave_status_model.dart';
 import 'package:osis/model/employee_handbook_model.dart';
+import 'package:osis/model/ennounce_pdf_model.dart';
 import 'package:osis/model/feedback_create_model.dart';
 import 'package:osis/model/feedback_model.dart';
 import 'package:osis/model/ket_doc_model.dart';
@@ -217,37 +220,48 @@ class Api extends ApiBase {
   }
 
 
-
-/*
-  Future<FeedBackCreateModel> feedBackCreateApi(File? image,String feedbackDate,String feedBackType,String description) async {
-    LoginModel ?loginModel = await preferenceService.getUserData();
-
-    String baseUrl ="http://lmsapi.awnsys.net:88//api/efeedback/save";
-    var uri = Uri.parse(baseUrl);
-    Map<String, String> headers = { "Content-Type": "application/x-www-form-urlencoded",
-      "Authorization": "Bearer ${loginModel?.accessToken}",};
-    var request = new http.MultipartRequest("POST", uri);
-
-    request.headers.addAll(headers);
-    request.fields['feedbackdate'] = feedbackDate;
-    request.fields['feedbackType'] = feedBackType;
-    request.fields['description'] = description;
+  Future<ELeaveStatusModel?> getLeaveStatusApi() async {
 
 
-    //request.files.add(await http.MultipartFile.fromPath("feedbackImage", image!.path,));
+    final response = await sendAsync(ApiMethod.GET, 'http://lmsapi.awnsys.net:88//api/leave/selectscheduleleave', null,authentication: true);
+    if (response!=null){
 
-    print(request.fields);
-
-    var response = await request.send();
-    var responseBody = await response.stream.bytesToString();
-print(json.decode(responseBody));
-    return FeedBackCreateModel.fromJson(json.decode(responseBody));
-
-
+      return ELeaveStatusModel.fromJson(json.decode(response.body));
+    }
+    return null;
 
   }
 
-*/
+
+  Future<EAnnouncePdfModel?> getEnnouncePdfApi(String id) async {
+
+    Map<String, dynamic> params = new Map();
+    params['id'] = id;
+
+
+    final response = await sendAsync(ApiMethod.POST, 'http://lmsapi.awnsys.net:88/api/announcements/PDFview', params,authentication: true);
+    if (response!=null){
+
+      return EAnnouncePdfModel.fromJson(json.decode(response.body));
+    }
+    return null;
+
+  }
+  Future<EAnnounceImageModel?> getEnnounceImageApi(String id) async {
+
+    Map<String, dynamic> params = new Map();
+    params['id'] = id;
+
+
+    final response = await sendAsync(ApiMethod.POST, 'http://lmsapi.awnsys.net:88/api/announcements/Imageview', params,authentication: true);
+    if (response!=null){
+
+      return EAnnounceImageModel.fromJson(json.decode(response.body));
+    }
+    return null;
+
+  }
+
 
   Future<FeedBackCreateModel?> feedBackCreateApi(File? image,String feedbackDate,String feedBackType,String description) async {
 
