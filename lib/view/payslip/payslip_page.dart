@@ -42,7 +42,7 @@ class _PaySlipPageState extends State<PaySlipPage> {
 
           ),
           body: model.state == ViewState.Busy?Center(child: CircularProgressIndicator()):SingleChildScrollView(
-              child:model.paySlipModel?.data?.length==0?Center(child:
+              child:model.paySlipModel?.error!=null?Center(child:
               new Text("No Data",textScaleFactor: 1,),):ListView.builder(
                   shrinkWrap: true,
                   primary: false,

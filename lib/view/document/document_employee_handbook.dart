@@ -37,7 +37,7 @@ class _DocumentEmployeeHandbookState extends State<DocumentEmployeeHandbook> {
 
           ),
           body: model.state == ViewState.Busy?Center(child: CircularProgressIndicator()):SingleChildScrollView(
-              child: model.employeeHandbookModel?.data?.length==0?Center(child:
+              child: model.employeeHandbookModel?.error!=null?Center(child:
               new Text("No Data",textScaleFactor: 1,),):ListView.builder(
                   shrinkWrap: true,
                   primary: false,

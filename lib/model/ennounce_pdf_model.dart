@@ -2,8 +2,9 @@ class EAnnouncePdfModel {
   List<EAnnouncePDFData> ?data;
   int ?responseCode;
   String ?responseMessage;
+  String ?error;
 
-  EAnnouncePdfModel({this.data, this.responseCode, this.responseMessage});
+  EAnnouncePdfModel({this.data, this.error,this.responseCode, this.responseMessage});
 
   EAnnouncePdfModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
@@ -14,6 +15,7 @@ class EAnnouncePdfModel {
     }
     responseCode = json['ResponseCode'];
     responseMessage = json['ResponseMessage'];
+    error = json['error'];
   }
 
   Map<String, dynamic> toJson() {

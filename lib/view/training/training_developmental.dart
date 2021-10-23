@@ -37,7 +37,7 @@ class _TrainingDevelopmentalState extends State<TrainingDevelopmental> {
 
           ),
           body: model.state == ViewState.Busy?Center(child: CircularProgressIndicator()):SingleChildScrollView(
-              child: model.trainingDevelopmentModel?.data?.length==0?Center(child:
+              child: model.trainingDevelopmentModel?.error!=null?Center(child:
               new Text("No Data",textScaleFactor: 1,),):ListView.builder(
                   shrinkWrap: true,
                   primary: false,

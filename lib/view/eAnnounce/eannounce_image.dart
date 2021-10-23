@@ -41,7 +41,7 @@ class _EAnnounceImagePageState extends State<EAnnounceImagePage> {
 
           ),
           body: model.state == ViewState.Busy?Center(child: CircularProgressIndicator()):SingleChildScrollView(
-              child: model.eAnnounceImageModel?.data?.length==0?Center(child:
+              child: model.eAnnounceImageModel?.error!=null?Center(child:
               new Text("No Data",textScaleFactor: 1,),):
 
               Container(

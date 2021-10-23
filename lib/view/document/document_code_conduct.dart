@@ -37,7 +37,7 @@ class _DocumentCodeState extends State<DocumentCodeConduct> {
 
           ),
           body: model.state == ViewState.Busy?Center(child: CircularProgressIndicator()):SingleChildScrollView(
-              child: model.codeConductModel?.data?.length==0?Center(child:
+              child: model.codeConductModel?.error!=null?Center(child:
               new Text("No Data",textScaleFactor: 1,),):ListView.builder(
                   shrinkWrap: true,
                   primary: false,

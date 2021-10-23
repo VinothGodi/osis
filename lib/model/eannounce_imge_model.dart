@@ -2,8 +2,9 @@ class EAnnounceImageModel {
   List<EAnnounceImage> ?data;
   int ?responseCode;
   String ?responseMessage;
+  String ?error;
 
-  EAnnounceImageModel({this.data, this.responseCode, this.responseMessage});
+  EAnnounceImageModel({this.data, this.error,this.responseCode, this.responseMessage});
 
   EAnnounceImageModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
@@ -13,6 +14,7 @@ class EAnnounceImageModel {
       });
     }
     responseCode = json['ResponseCode'];
+    error = json['error'];
     responseMessage = json['ResponseMessage'];
   }
 

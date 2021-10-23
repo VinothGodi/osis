@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:osis/core/enums/viewstate.dart';
 import 'package:osis/core/res/spacing.dart';
 import 'package:osis/helper/base_view_model.dart';
@@ -168,18 +169,21 @@ class FeedbackViewModel extends BaseViewModel{
   }
 
   Future<void> selectDate(BuildContext context) async {
-
+   late DateTime  selected;
     final DateTime ?picked = await showDatePicker(
         context: context,
 
         initialDate: now,
+
 
         lastDate: DateTime(2101),
         firstDate: DateTime.now());
 
 
     if (picked != null)
-      selectedDate= picked.toString();
+       selected= picked;
+   selectedDate = new DateFormat("dd/MM/yyyy HH:mm:ss").format(selected);
+    print(selectedDate);
     notifyListeners();
   }
 

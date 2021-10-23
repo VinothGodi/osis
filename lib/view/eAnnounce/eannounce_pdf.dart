@@ -46,7 +46,7 @@ class _EAnnouncePDFPageState extends State<EAnnouncePDFPage> {
 
           ),
           body: model.state == ViewState.Busy?Center(child: CircularProgressIndicator()):SingleChildScrollView(
-              child: model.eAnnounceModel?.data?.length==0?Center(child:
+              child: model.eAnnounceModel?.error!=null?Center(child:
               new Text("No Data",textScaleFactor: 1,),):ListView.builder(
                   shrinkWrap: true,
                   primary: false,
@@ -84,10 +84,7 @@ class _EAnnouncePDFPageState extends State<EAnnouncePDFPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              new Text("Order No : ${data?.orderno}",textScaleFactor: 1,style:
-              AppTextStyle.subtitle6),
-
-              VerticalSpacing.d5px(),
+             
 
               new Row(
                 mainAxisAlignment: MainAxisAlignment.start,

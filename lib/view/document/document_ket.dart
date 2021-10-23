@@ -40,7 +40,7 @@ class _DocumentKetState extends State<DocumentKet> {
 
           ),
           body: model.state == ViewState.Busy?Center(child: CircularProgressIndicator()):SingleChildScrollView(
-              child: model.ketModel?.data?.length==0?Center(child:
+              child: model.ketModel?.error!=null?Center(child:
               new Text("No Data",textScaleFactor: 1,),):ListView.builder(
                   shrinkWrap: true,
                   primary: false,

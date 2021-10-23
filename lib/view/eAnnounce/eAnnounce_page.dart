@@ -40,7 +40,7 @@ class _EAnnouncePageState extends State<EAnnouncePage> {
 
           ),
           body: model.state == ViewState.Busy?Center(child: CircularProgressIndicator()):SingleChildScrollView(
-              child: model.eAnnounceModel?.data?.length==0?Center(child:
+              child: model.eAnnounceModel?.error!=null?Center(child:
               new Text("No Data",textScaleFactor: 1,),):ListView.builder(
                   shrinkWrap: true,
                   primary: false,
