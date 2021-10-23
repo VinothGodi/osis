@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ import 'package:osis/service/shared/dialog_service.dart';
 import '../../locator.dart';
 import '../../router.dart';
 import 'feedback_page.dart';
+import 'dart:io' as Io;
 
 
 class FeedbackViewModel extends BaseViewModel{
@@ -182,16 +184,18 @@ class FeedbackViewModel extends BaseViewModel{
   }
 
   submitFeedBack(BuildContext context) async{
-
-
-
-  /*  if(feedBackImage==null){
+    /*  if(feedBackImage==null){
       await locator<DialogService>().showDialog(description: "Please select the image");
       return;
     }*/
 
     setState(ViewState.Busy);
-     response=  await api.feedBackCreateApi(feedBackImage,selectedDate,myFeedBackType!.name,descriptionController.text);
+
+    final bytes = Io.File(feedBackImage!.path).readAsBytesSync();
+
+    String img64 = base64Encode(bytes);
+
+     response=  await api.feedBackCreateApi(img64,selectedDate,myFeedBackType!.name,descriptionController.text);
 
 
     if(response?.responseCode==400){
@@ -206,10 +210,8 @@ class FeedbackViewModel extends BaseViewModel{
 
     if(response?.responseCode==201){
       setState(ViewState.Idle);
-      Navigator.of(context,rootNavigator: true).pop();
 
-      await locator<DialogService>().showDialog(description: response!.responseMessage.toString());
-      Navigator.pop(context);
+      await locator<DialogService>().showDialog(description: response!.responseMessage.toString(),dismissable: false);
     }
 
 

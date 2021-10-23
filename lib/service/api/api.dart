@@ -263,12 +263,13 @@ class Api extends ApiBase {
   }
 
 
-  Future<FeedBackCreateModel?> feedBackCreateApi(File? image,String feedbackDate,String feedBackType,String description) async {
+  Future<FeedBackCreateModel?> feedBackCreateApi(String image,String feedbackDate,String feedBackType,String description) async {
 
     Map<String, dynamic> params = new Map();
     params['feedbackdate'] = feedbackDate;
     params['feedbackType'] = feedBackType;
     params['description'] = description;
+    params['feedbackImage'] = image;
 
 
 

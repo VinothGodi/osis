@@ -95,55 +95,50 @@ class _FeedBackPageState extends State<FeedBackPage> {
 
   feedBackList(Data? data){
 
-    return GestureDetector(
-      onTap: (){
+    return Container(
+        width: double.infinity,
+        margin: EdgeInsets.only(top: 15,left: 15,right: 15,bottom: 10),
+        padding: EdgeInsets.all(15),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(color: AppColor.black.withOpacity(0.1)),
+          borderRadius: BorderRadius.circular(10),
 
-      },
-      child: Container(
-          width: double.infinity,
-          margin: EdgeInsets.only(top: 15,left: 15,right: 15,bottom: 10),
-          padding: EdgeInsets.all(15),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(color: AppColor.black.withOpacity(0.1)),
-            borderRadius: BorderRadius.circular(10),
-
-          ),
-          child:Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              new Text("${data?.feedbackdate}",textScaleFactor: 1,style: AppTextStyle.subtitle6,),
+        ),
+        child:Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            new Text("${data?.feedbackdate}",textScaleFactor: 1,style: AppTextStyle.subtitle6,),
 
 
-              VerticalSpacing.d10px(),
+            VerticalSpacing.d10px(),
 
-              new Text("${data?.feedbacktype}",textScaleFactor: 1,style: AppTextStyle.subtitle10,),
-              VerticalSpacing.d10px(),
-              new Text("${data?.description}",textScaleFactor: 1,style: AppTextStyle.subtitle6,),
-              VerticalSpacing.d10px(),
+            new Text("${data?.feedbacktype}",textScaleFactor: 1,style: AppTextStyle.subtitle10,),
+            VerticalSpacing.d10px(),
+            new Text("${data?.description}",textScaleFactor: 1,style: AppTextStyle.subtitle6,),
+            VerticalSpacing.d10px(),
 
-              InkWell(
-                  onTap:(){
-                    if(data!.feedbackimage!.isEmpty){
-                      return;
-                    }
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => NetworkImageView(data.feedbackimage.toString())),
-                    );
+            InkWell(
+                onTap:(){
+                  if(data!.feedbackimage!.isEmpty){
+                    return;
+                  }
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => NetworkImageView(data.feedbackimage.toString())),
+                  );
 
 
-                  },
-                  child: new Text("IMAGE",textScaleFactor: 1,style: AppTextStyle.subtitle9,)),
+                },
+                child: new Text("IMAGE",textScaleFactor: 1,style: AppTextStyle.subtitle9,)),
 
 
 
 
 
-            ],
-          )
-      ),
+          ],
+        )
     );
 
   }
@@ -306,7 +301,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
                      await  model.submitFeedBack(context);
                     FocusScope.of(context).requestFocus(new FocusNode());
                     Navigator.of(context,rootNavigator: true).pop();
-
+                    Navigator.pop(context);
 
                   }, key: Key("Submit")),
             ],
