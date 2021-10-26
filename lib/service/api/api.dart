@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:osis/model/code_conduct_model.dart';
 import 'package:osis/model/eannounce_imge_model.dart';
 import 'package:osis/model/eannounce_model.dart';
+import 'package:osis/model/eleave_create_model.dart';
 import 'package:osis/model/eleave_status_model.dart';
 import 'package:osis/model/employee_handbook_model.dart';
 import 'package:osis/model/ennounce_pdf_model.dart';
@@ -271,11 +272,6 @@ class Api extends ApiBase {
     params['description'] = description;
     params['feedbackImage'] = image;
 
-
-
-
-    print(params);
-
     final response = await sendAsync(ApiMethod.POST, 'http://lmsapi.awnsys.net:88//api/efeedback/save', params,authentication: true);
     if (response!=null){
 
@@ -285,5 +281,24 @@ class Api extends ApiBase {
 
   }
 
+
+
+  Future<EleaveCreateModel?> eLeaveCreate(String startDate,String endDate,String reMarks, String? category) async {
+    //LoginModel ?loginModel = await preferenceService.getUserData();
+    Map<String, dynamic> params = new Map();
+    params['startdate'] = startDate;
+    params['enddate'] = endDate;
+    params['description'] = reMarks;
+    params['category'] = category;
+    //params['companycode'] = loginModel.empcode.toString();
+
+    final response = await sendAsync(ApiMethod.POST, 'http://lmsapi.awnsys.net:88//api/leave/saveleaverequest', params,authentication: true);
+    if (response!=null){
+
+      return EleaveCreateModel.fromJson(json.decode(response.body));
+    }
+    return null;
+
+  }
 
 }

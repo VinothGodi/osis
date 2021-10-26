@@ -1,5 +1,5 @@
 class LeaveDetailModel {
-  List<Data> ?data;
+  List<LeaveData> ?data;
   int ?responseCode;
   String ?responseMessage;
   String ?error;
@@ -9,9 +9,9 @@ class LeaveDetailModel {
 
   LeaveDetailModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = <Data>[];
+      data = <LeaveData>[];
       json['data'].forEach((v) {
-        data?.add(new Data.fromJson(v));
+        data?.add(new LeaveData.fromJson(v));
       });
     }
     responseCode = json['ResponseCode'];
@@ -30,29 +30,32 @@ class LeaveDetailModel {
   }
 }
 
-class Data {
+class LeaveData {
   String ?rowno;
   String ?leavetype;
   String ?totalleave;
   String ?leavetaken;
   String ?pendingleave;
   String ?requestleave;
+  String ?category;
 
-  Data(
+  LeaveData(
       {this.rowno,
         this.leavetype,
         this.totalleave,
         this.leavetaken,
         this.pendingleave,
+        this.category,
         this.requestleave});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  LeaveData.fromJson(Map<String, dynamic> json) {
     rowno = json['rowno'];
     leavetype = json['leavetype'];
     totalleave = json['totalleave'];
     leavetaken = json['leavetaken'];
     pendingleave = json['pendingleave'];
     requestleave = json['requestleave'];
+    category = json['category'];
   }
 
   Map<String, dynamic> toJson() {

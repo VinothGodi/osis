@@ -39,6 +39,7 @@ class StatusData {
   String ?name;
   String ?status;
   String ?noofdays;
+  String ?leavetype;
 
   StatusData(
       {this.leaveID,
@@ -51,6 +52,7 @@ class StatusData {
         this.category,
         this.name,
         this.status,
+        this.leavetype,
         this.noofdays});
 
   StatusData.fromJson(Map<String, dynamic> json) {
@@ -65,6 +67,7 @@ class StatusData {
     name = json['name'];
     status = json['status'];
     noofdays = json['noofdays'];
+    leavetype = json['leavetype'];
   }
 
   Map<String, dynamic> toJson() {
