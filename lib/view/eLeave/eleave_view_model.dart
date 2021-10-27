@@ -84,6 +84,17 @@ class ELeaveViewModel extends BaseViewModel {
     if (picked != null)
       selected= picked;
     selectedStartDate = new DateFormat("dd/MM/yyyy").format(selected);
+
+    if(selectedEndDate.trim().isNotEmpty && selectedStartDate.trim().isNotEmpty ){
+      DateFormat inputFormat = DateFormat('dd/MM/yyyy');
+
+      DateTime start = inputFormat.parse(selectedStartDate);
+      DateTime end = inputFormat.parse(selectedEndDate);
+
+      daysController.text = end.difference(start).inDays.toString();
+
+    }
+
     notifyListeners();
   }
 
@@ -103,6 +114,18 @@ class ELeaveViewModel extends BaseViewModel {
     if (picked != null)
       selected= picked;
     selectedEndDate = new DateFormat("dd/MM/yyyy").format(selected);
+
+    if(selectedEndDate.trim().isNotEmpty || selectedStartDate.trim().isNotEmpty ){
+
+      DateFormat inputFormat = DateFormat('dd/MM/yyyy');
+      DateTime start = inputFormat.parse(selectedStartDate.trim());
+
+      DateTime end = inputFormat.parse(selectedEndDate.trim());
+
+      daysController.text = end.difference(start).inDays.toString();
+
+    }
+
     notifyListeners();
   }
 

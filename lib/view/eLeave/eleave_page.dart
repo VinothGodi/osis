@@ -192,29 +192,45 @@ class _ELeavePageState extends State<ELeavePage> {
 
             new Text("No of Days",textScaleFactor: 1,style: AppTextStyle.subtitle10.copyWith(fontWeight: FontWeight.w500 ,fontSize: 16) ,),
             VerticalSpacing.d10px(),
-            TextField(
-              controller: model.daysController,
-              autocorrect: false,
-              focusNode: model.daysFocus,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                hintText: '',
-                hintStyle: TextStyle(fontSize: 14),
-                contentPadding:  EdgeInsets.symmetric(vertical: 15.0,horizontal: 15),
-                filled: true,
-                enabledBorder:  OutlineInputBorder(
+            InkWell(
+              onTap: () async{
+                if(model.selectedStartDate==""){
+                  await locator<DialogService>().showDialog(description: "Please select the Start date");
+                return;
+                }
 
-                  borderSide: BorderSide(color: AppColor.primaryBlue, width:0),
-                ),
-                isDense: true,
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: AppColor.primaryBlue, width:0),
-                ),
-                fillColor: AppColor.white,),
-              onSubmitted: (String value){
-                FocusScope.of(context)
-                    .requestFocus(model.remarkFocus,);
+                if(model.selectedEndDate==""){
+                await locator<DialogService>().showDialog(description: "Please select the End date");
+                return;
+                }
               },
+              child: TextField(
+                controller: model.daysController,
+                autocorrect: false,
+                enabled: false,
+
+                focusNode: model.daysFocus,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  hintText: '',
+                  hintStyle: TextStyle(fontSize: 14),
+                  contentPadding:  EdgeInsets.symmetric(vertical: 15.0,horizontal: 15),
+                  filled: true,
+                  disabledBorder:OutlineInputBorder(
+
+                    borderSide: BorderSide(color: AppColor.primaryBlue, width:0),
+                  ) ,
+                  enabledBorder:  OutlineInputBorder(
+
+                    borderSide: BorderSide(color: AppColor.primaryBlue, width:0),
+                  ),
+                  isDense: true,
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: AppColor.primaryBlue, width:0),
+                  ),
+                  fillColor: AppColor.white,),
+
+              ),
             ),
             VerticalSpacing.d15px(),
             new Text("Description",textScaleFactor: 1,style: AppTextStyle.subtitle10.copyWith(fontWeight: FontWeight.w500 ,fontSize: 16) ,),
