@@ -9,6 +9,8 @@ class LoginModel {
   List<Data> ?data;
   int ?responseCode;
   String ?error;
+  String ?companyname;
+  String ?empname;
   String ?responseMessage;
 
   LoginModel(
@@ -20,8 +22,10 @@ class LoginModel {
         this.empcode,
         this.yOUTUBEAPIKEY,
         this.data,
+        this.companyname,
         this.responseCode,
         this.error,
+        this.empname,
         this.responseMessage});
 
   LoginModel.fromJson(Map<String, dynamic> json) {
@@ -32,6 +36,8 @@ class LoginModel {
     scope = json['scope'];
     error = json['error'];
     empcode = json['empcode'];
+    empname = json['empname'];
+    companyname = json['Companyname'];
     yOUTUBEAPIKEY = json['YOUTUBE_API_KEY'];
     if (json['data'] != null) {
       data = <Data>[];
@@ -67,14 +73,18 @@ class Data {
   String ?empname;
   String ?username;
   String ?image;
+  String ?employeeId;
+  String ?companyname;
 
-  Data({this.empcode, this.empname, this.username, this.image});
+  Data({this.empcode, this.empname, this.username, this.image,this.employeeId,this.companyname});
 
   Data.fromJson(Map<String, dynamic> json) {
     empcode = json['empcode'];
     empname = json['empname'];
     username = json['username'];
     image = json['image'];
+    employeeId = json['employeeId'];
+    companyname = json['companyname'];
   }
 
   Map<String, dynamic> toJson() {
@@ -83,6 +93,8 @@ class Data {
     data['empname'] = this.empname;
     data['username'] = this.username;
     data['image'] = this.image;
+    data['companyname'] = this.companyname;
+    data['employeeId'] = this.employeeId;
     return data;
   }
 }

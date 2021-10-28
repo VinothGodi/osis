@@ -182,7 +182,7 @@ class FeedbackViewModel extends BaseViewModel{
 
     if (picked != null)
        selected= picked;
-   selectedDate = new DateFormat("dd/MM/yyyy HH:mm:ss").format(selected);
+   selectedDate = new DateFormat("dd/MM/yyyy").format(selected);
     print(selectedDate);
     notifyListeners();
   }

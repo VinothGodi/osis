@@ -6,6 +6,7 @@ import 'package:osis/core/res/spacing.dart';
 import 'package:osis/core/res/styles.dart';
 import 'package:osis/model/eleave_status_model.dart';
 import 'package:osis/model/leave_detail_model.dart';
+import 'package:osis/model/leave_type_model.dart';
 import 'package:osis/service/shared/dialog_service.dart';
 import 'package:osis/widgets/alert_dialog.dart';
 import 'package:osis/widgets/base_view.dart';
@@ -107,7 +108,7 @@ class _ELeavePageState extends State<ELeavePage> {
             new Text("Leave Type",textScaleFactor: 1,style: AppTextStyle.subtitle10.copyWith(fontWeight: FontWeight.w500 ,fontSize: 16) ,),
             VerticalSpacing.d5px(),
 
-            DropdownButton<LeaveData>(
+            DropdownButton<LeaveTypeData>(
 
               hint: new Text("Select Leave Type"),
 
@@ -125,14 +126,14 @@ class _ELeavePageState extends State<ELeavePage> {
                   ),
                 ),
               ),
-              items: model.leaveType?.map((LeaveData item) {
-                return new DropdownMenuItem<LeaveData>(
+              items: model.leaveType?.map((LeaveTypeData item) {
+                return new DropdownMenuItem<LeaveTypeData>(
 
                   child: new Text("${item.leavetype}",textScaleFactor: 1,style: AppTextStyle.subtitle9,),
                   value: item,
                 );
               }).toList(),
-              onChanged: (LeaveData ?value){
+              onChanged: (LeaveTypeData ?value){
                 model.myLeaveType =value;
                 model.selectedLeaveType(value);
                 model.notifyListeners();
@@ -305,6 +306,14 @@ class _ELeavePageState extends State<ELeavePage> {
                         return;
                       }
 
+                      if(model.daysCal==0) {
+                        await locator<DialogService>().showDialog(description: "Invalid Date", dismissable: false);
+
+                        return;
+                      }
+
+
+
                       Dialogs.showLoadingDialog(context, _keyLoader);
                       await  model.submitLeave(context);
                       FocusScope.of(context).requestFocus(new FocusNode());
@@ -353,11 +362,6 @@ class _ELeavePageState extends State<ELeavePage> {
             new Text("Leave Taken ${data?.leavetaken}",textScaleFactor: 1,style: AppTextStyle.subtitle6.copyWith(color: AppColor.red)),
             VerticalSpacing.d10px(),
             new Text("Pending Leave ${data?.pendingleave}",textScaleFactor: 1,style: AppTextStyle.subtitle9,),
-
-
-
-
-
 
 
           ],

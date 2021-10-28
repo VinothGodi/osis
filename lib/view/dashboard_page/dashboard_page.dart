@@ -33,7 +33,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
         backgroundColor: AppColor.primaryBlue,
         centerTitle: true,
         elevation: 0,
-        title: new Text("Awnsys Technologies",textScaleFactor: 1,style: AppTextStyle.mediumWhiteBold.copyWith(fontSize: 18)),
+        title: new Text("${model.loginModel?.data?[0].companyname}",textScaleFactor: 1,style: AppTextStyle.mediumWhiteBold.copyWith(fontSize: 18)),
         actions: [
           IconButton(
             icon: Icon(Icons.power_settings_new_rounded,color: AppColor.white,), onPressed: ()  async{
@@ -63,14 +63,15 @@ class _DashBoardPageState extends State<DashBoardPage> {
               height: 100,
              child:  new Row(
                children: [
-                 new Icon(Icons.person_rounded,color: AppColor.white,size: 50,),
+                 Image.network("${model.loginModel?.data?[0].image}",width: 60,height: 60,),
+                 //new Icon(Icons.person_rounded,color: AppColor.white,size: 50,),
                  HorizontalSpacing.d10px(),
                  Column(
                    crossAxisAlignment: CrossAxisAlignment.start,
 
                    mainAxisAlignment: MainAxisAlignment.center,
                    children: [
-                     new Text("${model.loginModel?.data?[0].empcode}",textScaleFactor: 1,style: AppTextStyle.mediumWhiteBold.copyWith(fontSize: 18),),
+                     new Text("${model.loginModel?.data?[0].employeeId}",textScaleFactor: 1,style: AppTextStyle.mediumWhiteBold.copyWith(fontSize: 18),),
                      VerticalSpacing.d5px(),
                      new Text("${model.loginModel?.data?[0].empname}",textScaleFactor: 1,style: AppTextStyle.mediumWhite.copyWith(fontSize: 18),),
 

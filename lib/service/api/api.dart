@@ -13,6 +13,7 @@ import 'package:osis/model/feedback_model.dart';
 import 'package:osis/model/ket_doc_model.dart';
 import 'package:osis/model/ket_model.dart';
 import 'package:osis/model/leave_detail_model.dart';
+import 'package:osis/model/leave_type_model.dart';
 import 'package:osis/model/login_model.dart';
 import 'package:osis/model/payslip_model.dart';
 import 'package:osis/model/payslip_year_model.dart';
@@ -215,6 +216,18 @@ class Api extends ApiBase {
     if (response!=null){
 
       return LeaveDetailModel.fromJson(json.decode(response.body));
+    }
+    return null;
+
+  }
+
+  Future<LeaveTypeModel?> getLeaveTypeApi() async {
+
+
+    final response = await sendAsync(ApiMethod.GET, 'http://lmsapi.awnsys.net:88//api/leave/Getdeploymentcategory', null,authentication: true);
+    if (response!=null){
+
+      return LeaveTypeModel.fromJson(json.decode(response.body));
     }
     return null;
 

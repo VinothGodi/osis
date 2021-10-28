@@ -5,6 +5,7 @@ import 'package:osis/helper/base_view_model.dart';
 import 'package:osis/model/eleave_create_model.dart';
 import 'package:osis/model/eleave_status_model.dart';
 import 'package:osis/model/leave_detail_model.dart';
+import 'package:osis/model/leave_type_model.dart';
 import 'package:osis/service/shared/dialog_service.dart';
 
 import '../../locator.dart';
@@ -18,9 +19,12 @@ class ELeaveViewModel extends BaseViewModel {
   FocusNode remarkFocus = new FocusNode();
 
   FocusNode daysFocus = new FocusNode();
-  List<LeaveData> ?leaveType;
+  List<LeaveTypeData> ?leaveType;
+  LeaveTypeModel ?leaveTypeModel;
+  int daysCal=0;
 
-  LeaveData? myLeaveType;
+
+  LeaveTypeData? myLeaveType;
 
   ELeaveStatusModel ?eLeaveStatusModel;
   DateTime now = DateTime.now();
@@ -32,15 +36,15 @@ class ELeaveViewModel extends BaseViewModel {
     leaveDetailModel = await api.getLeaveDetailApi();
 
 
-
-
     if(leaveDetailModel?.responseCode==400){
       Navigator.of(context)
           .pushNamedAndRemoveUntil(Routes.login, (Route<dynamic> route) => false);
       return;
 
     }
-    leaveType = leaveDetailModel?.data;
+    leaveTypeModel = await api.getLeaveTypeApi();
+
+    leaveType = leaveTypeModel?.data;
 
     eLeaveStatusModel = await api.getLeaveStatusApi();
 
@@ -61,7 +65,7 @@ class ELeaveViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  selectedLeaveType(LeaveData ?value) async {
+  selectedLeaveType(LeaveTypeData ?value) async {
 
     myLeaveType = value;
     notifyListeners();
@@ -91,7 +95,20 @@ class ELeaveViewModel extends BaseViewModel {
       DateTime start = inputFormat.parse(selectedStartDate);
       DateTime end = inputFormat.parse(selectedEndDate);
 
-      daysController.text = end.difference(start).inDays.toString();
+       daysCal = end.difference(start).inDays + 1;
+
+      if(daysCal==0){
+
+        await locator<DialogService>().showDialog(description:"Invalid Date",dismissable: false);
+        daysController.text ="";
+        notifyListeners();
+
+        return;
+
+      }
+
+      daysController.text = daysCal.toString();
+
 
     }
 
@@ -122,7 +139,19 @@ class ELeaveViewModel extends BaseViewModel {
 
       DateTime end = inputFormat.parse(selectedEndDate.trim());
 
-      daysController.text = end.difference(start).inDays.toString();
+       daysCal = end.difference(start).inDays + 1;
+
+      if(daysCal==0){
+
+        await locator<DialogService>().showDialog(description:"Invalid Date",dismissable: false);
+        daysController.text ="";
+            notifyListeners();
+
+        return;
+
+      }
+
+      daysController.text = daysCal.toString();
 
     }
 

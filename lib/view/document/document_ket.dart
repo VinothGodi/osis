@@ -88,7 +88,9 @@ class _DocumentKetState extends State<DocumentKet> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
 
-              Icon(Icons.person,color: AppColor.primaryBlue,size: 40,),
+              Image.network("${data?.empImage}",width: 60,height: 60),
+
+             // Icon(Icons.person,color: AppColor.primaryBlue,size: 40,),
            HorizontalSpacing.d20px(),
            Column(
              mainAxisAlignment: MainAxisAlignment.start,

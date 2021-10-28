@@ -3,10 +3,13 @@ import 'package:osis/core/enums/viewstate.dart';
 import 'package:osis/core/res/colors.dart';
 import 'package:osis/core/res/spacing.dart';
 import 'package:osis/core/res/styles.dart';
+import 'package:osis/service/shared/dialog_service.dart';
 import 'package:osis/view/training/training_view_model.dart';
 import 'package:osis/widgets/base_view.dart';
 import 'package:osis/model/wsq_model.dart';
 import 'package:osis/widgets/pdf_viewer.dart';
+
+import '../../locator.dart';
 
 class TrainingWSQ extends StatefulWidget{
 
@@ -53,8 +56,10 @@ class _TrainingWSQState extends State<TrainingWSQ> {
   codeConductWidget(Data? data, BuildContext context){
 
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
         if (data!.documentpath!.isEmpty) {
+          await locator<DialogService>().showDialog(description: "No Record Found");
+
           return;
         }
         Navigator.push(
@@ -86,9 +91,10 @@ class _TrainingWSQState extends State<TrainingWSQ> {
                     Expanded(child: new Text(
                       "${data?.trainingname}", textScaleFactor: 1,
                       style: AppTextStyle.subtitle10,)),
+
                     new Text("${data?.status}", textScaleFactor: 1,
                       style: AppTextStyle.subtitle10.copyWith(
-                          color: AppColor.green),),
+                          color: data?.status?[0]=="P"||data?.status?[0]=="p"?AppColor.green:AppColor.red),),
 
                   ],
                 ),
