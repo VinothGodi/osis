@@ -59,7 +59,7 @@ class Data {
     rewardtype = json['rewardtype'];
     rewardimage = json['rewardimage'];
     rewarddocument = json['rewarddocument'];
-    remarks = json['remarks'];
+    remarks = json['remarks']==""?"------":json['remarks'];
     status = json['status'];
   }
 

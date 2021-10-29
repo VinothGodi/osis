@@ -57,69 +57,64 @@ class _EAnnouncePageState extends State<EAnnouncePage> {
   }
   codeConductWidget(Data? data, BuildContext context){
 
-    return GestureDetector(
-      onTap: (){
+    return Container(
+        width: double.infinity,
+        margin: EdgeInsets.only(top: 15,left: 15,right: 15,bottom: 10),
+        padding: EdgeInsets.all(15),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(color: AppColor.black.withOpacity(0.1)),
+          borderRadius: BorderRadius.circular(10),
 
-      },
-      child: Container(
-          width: double.infinity,
-          margin: EdgeInsets.only(top: 15,left: 15,right: 15,bottom: 10),
-          padding: EdgeInsets.all(15),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(color: AppColor.black.withOpacity(0.1)),
-            borderRadius: BorderRadius.circular(10),
+        ),
+        child:Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
 
-          ),
-          child:Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
+            new Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                new Text("${data?.date} ${data?.day} ${data?.year}",textScaleFactor: 1,style: AppTextStyle.subtitle6,),
+                new Text("${data?.priority}",textScaleFactor: 1,style:
+                AppTextStyle.subtitle6.copyWith(color:AppColor.green),),
+              ],
+            ),
 
-              new Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  new Text("${data?.date} ${data?.day} ${data?.year}",textScaleFactor: 1,style: AppTextStyle.subtitle6,),
-                  new Text("${data?.priority}",textScaleFactor: 1,style:
-                  AppTextStyle.subtitle6.copyWith(color:AppColor.green),),
-                ],
-              ),
+            VerticalSpacing.d10px(),
+            new Text("${data?.ancetitle}",textScaleFactor: 1,style: AppTextStyle.subtitle10,),
+            VerticalSpacing.d10px(),
+            new Text("${data?.description}",textScaleFactor: 1,style: AppTextStyle.subtitle6,),
+            VerticalSpacing.d15px(),
 
-              VerticalSpacing.d10px(),
-              new Text("${data?.ancetitle}",textScaleFactor: 1,style: AppTextStyle.subtitle10,),
-              VerticalSpacing.d10px(),
-              new Text("${data?.description}",textScaleFactor: 1,style: AppTextStyle.subtitle6,),
-              VerticalSpacing.d15px(),
-
-             new Row(
-               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-               children: [
-                 InkWell(
-                   onTap:(){
-                     Navigator.pushNamed(context, Routes.eAnnounceImagePage,arguments:data?.ancecode );
-                   },
-                   child: Container(
-                       child: new Text("Image : ${data?.imageCount}",textScaleFactor: 1,style: AppTextStyle.subtitle9,)),
-                 ),
+           new Row(
+             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+             children: [
+               InkWell(
+                 onTap:(){
+                   Navigator.pushNamed(context, Routes.eAnnounceImagePage,arguments:data?.ancecode );
+                 },
+                 child: Container(
+                     child: new Text("IMAGE : ${data?.imageCount}",textScaleFactor: 1,style: AppTextStyle.subtitle9,)),
+               ),
 
 
-                InkWell(
-                  onTap:(){
-                    Navigator.pushNamed(context, Routes.eAnnouncePDFPage,arguments:data?.ancecode );
-                  },
-                  child: Container(
-                    child:  new Text("Pdf : ${data?.pdfCount}",textScaleFactor: 1,style: AppTextStyle.subtitle9,),
-                  ),
-                )
-               ],
-             )
+              InkWell(
+                onTap:(){
+                  Navigator.pushNamed(context, Routes.eAnnouncePDFPage,arguments:data?.ancecode );
+                },
+                child: Container(
+                  child:  new Text("PDF : ${data?.pdfCount}",textScaleFactor: 1,style: AppTextStyle.subtitle9,),
+                ),
+              )
+             ],
+           )
 
 
 
 
-            ],
-          )
-      ),
+          ],
+        )
     );
 
   }

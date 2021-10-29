@@ -9,6 +9,7 @@ import 'package:osis/core/res/spacing.dart';
 import 'package:osis/helper/base_view_model.dart';
 import 'package:osis/model/feedback_create_model.dart';
 import 'package:osis/model/feedback_model.dart';
+import 'package:osis/model/feedback_type_model.dart';
 import 'package:osis/service/shared/dialog_service.dart';
 
 import '../../locator.dart';
@@ -19,12 +20,15 @@ import 'dart:io' as Io;
 
 class FeedbackViewModel extends BaseViewModel{
   FeedBackModel ?feedBackModel;
-  List<FeedBackType> feedBackType=[];
+  List<FeedBackType> ?feedBackType;
   DateTime now = DateTime.now();
   String selectedDate="";
   File? feedBackImage;
   FeedBackCreateModel ?response;
   ImagePicker picker = ImagePicker();
+  FeedBackTypeModel ?feedBackTypeModel;
+
+
 
   TextEditingController descriptionController= new TextEditingController();
 
@@ -47,7 +51,9 @@ class FeedbackViewModel extends BaseViewModel{
   }
 
 
-  feedBackType.add(new FeedBackType("Suggestions"));
+  feedBackTypeModel = await api.getFeedbackTypeApi();
+
+  feedBackType = feedBackTypeModel?.data;
     
   setState(ViewState.Idle);
 
@@ -188,18 +194,16 @@ class FeedbackViewModel extends BaseViewModel{
   }
 
   submitFeedBack(BuildContext context) async{
-    /*  if(feedBackImage==null){
-      await locator<DialogService>().showDialog(description: "Please select the image");
-      return;
-    }*/
+
 
     setState(ViewState.Busy);
+
 
     final bytes = Io.File(feedBackImage!.path).readAsBytesSync();
 
     String img64 = base64Encode(bytes);
 
-     response=  await api.feedBackCreateApi(img64,selectedDate,myFeedBackType!.name,descriptionController.text);
+     response=  await api.feedBackCreateApi(img64,selectedDate,myFeedBackType!.feedbacktype.toString(),descriptionController.text);
 
 
     if(response?.responseCode==400){

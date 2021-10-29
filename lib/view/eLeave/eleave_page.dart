@@ -300,17 +300,18 @@ class _ELeavePageState extends State<ELeavePage> {
                         return;
                       }
 
-
-                      if(model.remarkController.text.isEmpty){
-                        await locator<DialogService>().showDialog(description: "Please enter the remarks");
-                        return;
-                      }
-
                       if(model.daysCal==0) {
                         await locator<DialogService>().showDialog(description: "Invalid Date", dismissable: false);
 
                         return;
                       }
+
+                      if(model.remarkController.text.isEmpty){
+                        await locator<DialogService>().showDialog(description: "Please enter the description");
+                        return;
+                      }
+
+
 
 
 

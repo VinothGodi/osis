@@ -10,6 +10,7 @@ import 'package:osis/model/employee_handbook_model.dart';
 import 'package:osis/model/ennounce_pdf_model.dart';
 import 'package:osis/model/feedback_create_model.dart';
 import 'package:osis/model/feedback_model.dart';
+import 'package:osis/model/feedback_type_model.dart';
 import 'package:osis/model/ket_doc_model.dart';
 import 'package:osis/model/ket_model.dart';
 import 'package:osis/model/leave_detail_model.dart';
@@ -228,6 +229,18 @@ class Api extends ApiBase {
     if (response!=null){
 
       return LeaveTypeModel.fromJson(json.decode(response.body));
+    }
+    return null;
+
+  }
+
+  Future<FeedBackTypeModel?> getFeedbackTypeApi() async {
+
+
+    final response = await sendAsync(ApiMethod.GET, 'http://lmsapi.awnsys.net:88/api/efeedback/getfeedbacktype', null,authentication: true);
+    if (response!=null){
+
+      return FeedBackTypeModel.fromJson(json.decode(response.body));
     }
     return null;
 

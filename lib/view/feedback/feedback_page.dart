@@ -9,6 +9,7 @@ import 'package:osis/core/res/spacing.dart';
 import 'package:osis/core/res/styles.dart';
 import 'package:osis/locator.dart';
 import 'package:osis/model/feedback_model.dart';
+import 'package:osis/model/feedback_type_model.dart';
 import 'package:osis/service/shared/dialog_service.dart';
 import 'package:osis/widgets/alert_dialog.dart';
 import 'package:osis/widgets/base_view.dart';
@@ -175,10 +176,10 @@ class _FeedBackPageState extends State<FeedBackPage> {
                   ),
                 ),
               ),
-              items: model.feedBackType.map((FeedBackType item) {
+              items: model.feedBackType?.map((FeedBackType item) {
                 return new DropdownMenuItem<FeedBackType>(
 
-                  child: new Text("${item.name}",textScaleFactor: 1,style: AppTextStyle.subtitle9,),
+                  child: new Text("${item.feedbacktype}",textScaleFactor: 1,style: AppTextStyle.subtitle9,),
                   value: item,
                 );
               }).toList(),
@@ -282,6 +283,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
                   // borderRadius: BorderRadius.circular(50),
                   color: Colors.green,
                   onPressed: () async {
+
                     if(model.myFeedBackType==null){
                       await locator<DialogService>().showDialog(description: "Please select the feedbacktype");
                       return;
@@ -294,6 +296,11 @@ class _FeedBackPageState extends State<FeedBackPage> {
 
                     if(model.descriptionController.text.isEmpty){
                       await locator<DialogService>().showDialog(description: "Please enter the description");
+                      return;
+                    }
+
+                    if(model.feedBackImage==null){
+                      await locator<DialogService>().showDialog(description: "Please select the image");
                       return;
                     }
 
@@ -313,9 +320,4 @@ class _FeedBackPageState extends State<FeedBackPage> {
     );
 
   }
-}
-class FeedBackType{
-  String name;
-
-  FeedBackType(this.name);
 }

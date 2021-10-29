@@ -33,7 +33,7 @@ class _DocumentCodeState extends State<DocumentCodeConduct> {
             leading: IconButton(onPressed: (){
               Navigator.pop(context);
             }, icon: Icon(Icons.arrow_back_ios,color: AppColor.white,)),
-            title: new Text("Code Conduct",textScaleFactor: 1,style: AppTextStyle.mediumWhiteBold.copyWith(fontSize: 18)),
+            title: new Text("Code of Conduct",textScaleFactor: 1,style: AppTextStyle.mediumWhiteBold.copyWith(fontSize: 18)),
 
           ),
           body: model.state == ViewState.Busy?Center(child: CircularProgressIndicator()):SingleChildScrollView(

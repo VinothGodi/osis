@@ -111,7 +111,17 @@ class _RewardsPageState extends State<RewardsPage> {
 
 
                      },
-                     child: new Text("IMAGE",textScaleFactor: 1,style: AppTextStyle.subtitle10,)),
+                     child: Container(
+                         padding: EdgeInsets.only(
+                           bottom: 2, // Space between underline and text
+                         ),
+                         decoration: BoxDecoration(
+                             border: Border(bottom: BorderSide(
+                               color: Colors.black,
+                               width: 1.2, // Underline thickness
+                             ))
+                         ),
+                         child: new Text("IMAGE",textScaleFactor: 1,style: AppTextStyle.subtitle6))),
                  InkWell(
                      onTap:(){
                        if(data!.rewarddocument!.isEmpty){
@@ -134,7 +144,17 @@ class _RewardsPageState extends State<RewardsPage> {
 
 
                      },
-                     child: new Text("Document",textScaleFactor: 1,style: AppTextStyle.subtitle10,)),
+                     child: Container(
+                         padding: EdgeInsets.only(
+                           bottom: 2, // Space between underline and text
+                         ),
+                         decoration: BoxDecoration(
+                             border: Border(bottom: BorderSide(
+                               color: Colors.black,
+                               width: 1.2, // Underline thickness
+                             ))
+                         ),
+                         child:new Text("Document",textScaleFactor: 1,style: AppTextStyle.subtitle10,))),
                ],
              ),
 
