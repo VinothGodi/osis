@@ -6,7 +6,7 @@ import 'package:osis/core/res/styles.dart';
 import 'package:osis/model/eannounce_model.dart';
 import 'package:osis/widgets/base_view.dart';
 import 'package:osis/model/ennounce_pdf_model.dart';
-
+import 'package:flutter_html/flutter_html.dart';
 import '../../router.dart';
 import 'eAnnounce_view_model.dart';
 
@@ -24,10 +24,7 @@ class _EAnnouncePageState extends State<EAnnouncePage> {
     return BaseView<EAnnounceViewModel>(
         onModelReady: (viewModel) async {
           await viewModel.init(context);
-
-
-
-        },
+          },
         builder: (context, model, child) =>Scaffold(
           backgroundColor: AppColor.backgroundAll,
           appBar: AppBar(
@@ -73,19 +70,24 @@ class _EAnnouncePageState extends State<EAnnouncePage> {
           children: [
 
             new Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 new Text("${data?.date} ${data?.day} ${data?.year}",textScaleFactor: 1,style: AppTextStyle.subtitle6,),
                 new Text("${data?.priority}",textScaleFactor: 1,style:
-                AppTextStyle.subtitle6.copyWith(color:AppColor.green),),
+                AppTextStyle.subtitle9.copyWith(color:AppColor.green),),
               ],
             ),
 
             VerticalSpacing.d10px(),
             new Text("${data?.ancetitle}",textScaleFactor: 1,style: AppTextStyle.subtitle10,),
-            VerticalSpacing.d10px(),
-            new Text("${data?.description}",textScaleFactor: 1,style: AppTextStyle.subtitle6,),
-            VerticalSpacing.d15px(),
+            data?.description?.isEmpty==true?Container():  VerticalSpacing.d10px(),
+
+            Html(data: '${data?.description}',),
+
+            //new Text("${data?.description}",textScaleFactor: 1,style: AppTextStyle.subtitle6,),
+
+            data?.description?.isEmpty==true?Container(): VerticalSpacing.d15px(),
 
            new Row(
              mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -95,7 +97,15 @@ class _EAnnouncePageState extends State<EAnnouncePage> {
                    Navigator.pushNamed(context, Routes.eAnnounceImagePage,arguments:data?.ancecode );
                  },
                  child: Container(
-                     child: new Text("IMAGE : ${data?.imageCount}",textScaleFactor: 1,style: AppTextStyle.subtitle9,)),
+                     child: new Text("IMAGE : ${data?.imageCount}",textScaleFactor: 1,style: data?.imageCount=="0"?AppTextStyle.subtitle6:AppTextStyle.subtitle9,)),
+               ),
+
+               InkWell(
+                 onTap:(){
+                   Navigator.pushNamed(context, Routes.eAnnounceImagePage,arguments:data?.ancecode );
+                 },
+                 child: Container(
+                     child: new Text(data?.empack=="0"?"Acknowledge":"Acknowledged",textScaleFactor: 1,style: data?.empack=="0"?AppTextStyle.subtitle9:AppTextStyle.subtitle6,)),
                ),
 
 
@@ -104,7 +114,7 @@ class _EAnnouncePageState extends State<EAnnouncePage> {
                   Navigator.pushNamed(context, Routes.eAnnouncePDFPage,arguments:data?.ancecode );
                 },
                 child: Container(
-                  child:  new Text("PDF : ${data?.pdfCount}",textScaleFactor: 1,style: AppTextStyle.subtitle9,),
+                  child:  new Text("PDF : ${data?.pdfCount}",textScaleFactor: 1,style: data?.imageCount=="0"?AppTextStyle.subtitle6:AppTextStyle.subtitle9,),
                 ),
               )
              ],

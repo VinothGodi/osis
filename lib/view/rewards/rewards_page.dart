@@ -56,7 +56,7 @@ class _RewardsPageState extends State<RewardsPage> {
 
         ));
   }
-  codeConductWidget(Data? data, BuildContext context){
+  codeConductWidget(Data ?data, BuildContext context){
 
     return GestureDetector(
       onTap: (){
@@ -101,30 +101,23 @@ class _RewardsPageState extends State<RewardsPage> {
 
                  InkWell(
                      onTap:(){
-                       if(data!.rewardimage!.isEmpty){
+                       if(data?.rewardimage?.isEmpty == true){
                          return;
                        }
                        Navigator.push(
                          context,
-                         MaterialPageRoute(builder: (context) => NetworkImageView(data.rewardimage.toString())),
+                         MaterialPageRoute(builder: (context) => NetworkImageView(data!.rewardimage.toString())),
                        );
-
-
-                     },
+                       },
                      child: Container(
                          padding: EdgeInsets.only(
                            bottom: 2, // Space between underline and text
                          ),
-                         decoration: BoxDecoration(
-                             border: Border(bottom: BorderSide(
-                               color: Colors.black,
-                               width: 1.2, // Underline thickness
-                             ))
-                         ),
-                         child: new Text("IMAGE",textScaleFactor: 1,style: AppTextStyle.subtitle6))),
+
+                         child: new Text("IMAGE",textScaleFactor: 1,style:data?.rewardimage?.isEmpty == true?AppTextStyle.subtitle6:AppTextStyle.subtitle10))),
                  InkWell(
                      onTap:(){
-                       if(data!.rewarddocument!.isEmpty){
+                       if(data?.rewarddocument?.isEmpty == true){
                            Fluttertoast.showToast(
                                msg: "No Document",
                                toastLength: Toast.LENGTH_SHORT,
@@ -138,7 +131,7 @@ class _RewardsPageState extends State<RewardsPage> {
                        }
                        Navigator.push(
                          context,
-                         MaterialPageRoute(builder: (context) => PDdfViewer(data.rewarddocument,"Document")),
+                         MaterialPageRoute(builder: (context) => PDdfViewer(data!.rewarddocument,"Document")),
                        );
 
 
@@ -148,13 +141,8 @@ class _RewardsPageState extends State<RewardsPage> {
                          padding: EdgeInsets.only(
                            bottom: 2, // Space between underline and text
                          ),
-                         decoration: BoxDecoration(
-                             border: Border(bottom: BorderSide(
-                               color: Colors.black,
-                               width: 1.2, // Underline thickness
-                             ))
-                         ),
-                         child:new Text("Document",textScaleFactor: 1,style: AppTextStyle.subtitle10,))),
+
+                         child:new Text("Document",textScaleFactor: 1,style: data?.rewarddocument?.isEmpty == true?AppTextStyle.subtitle6:AppTextStyle.subtitle10,))),
                ],
              ),
 

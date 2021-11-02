@@ -11,7 +11,6 @@ import 'package:osis/model/feedback_create_model.dart';
 import 'package:osis/model/feedback_model.dart';
 import 'package:osis/model/feedback_type_model.dart';
 import 'package:osis/service/shared/dialog_service.dart';
-
 import '../../locator.dart';
 import '../../router.dart';
 import 'feedback_page.dart';
@@ -54,6 +53,8 @@ class FeedbackViewModel extends BaseViewModel{
   feedBackTypeModel = await api.getFeedbackTypeApi();
 
   feedBackType = feedBackTypeModel?.data;
+
+  selectedDate = new DateFormat("dd/MM/yyyy").format(DateTime.now());
     
   setState(ViewState.Idle);
 
@@ -175,21 +176,22 @@ class FeedbackViewModel extends BaseViewModel{
   }
 
   Future<void> selectDate(BuildContext context) async {
+    DateTime currentDate = DateTime.now();
    late DateTime  selected;
+
+
     final DateTime ?picked = await showDatePicker(
         context: context,
-
-        initialDate: now,
-
-
+        initialDate: currentDate,
         lastDate: DateTime(2101),
         firstDate: DateTime.now());
 
 
-    if (picked != null)
-       selected= picked;
-   selectedDate = new DateFormat("dd/MM/yyyy").format(selected);
-    print(selectedDate);
+    if (picked != null){
+      print("picked $picked");
+
+      selected= picked;
+    selectedDate = new DateFormat("dd/MM/yyyy").format(selected);}
     notifyListeners();
   }
 

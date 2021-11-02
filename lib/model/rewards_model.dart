@@ -1,10 +1,10 @@
 class RewardsModel {
-  List<Data> ?data;
+   List<Data> ?data;
   int ?responseCode;
   String ?error;
   String ?responseMessage;
 
-  RewardsModel({this.data, this.error, this.responseCode, this.responseMessage});
+  RewardsModel({required this.data, this.error, this.responseCode, this.responseMessage});
 
   RewardsModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {

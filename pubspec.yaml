@@ -46,7 +46,9 @@ dependencies:
   collection: ^1.15.0
   location: ^4.3.0
   geolocator: ^7.7.0
+  pinch_zoom: ^1.0.0
   syncfusion_flutter_pdfviewer: ^19.3.44-beta
+  flutter_html: ^2.1.5
 
 
 

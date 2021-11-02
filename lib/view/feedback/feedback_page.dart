@@ -197,6 +197,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
             VerticalSpacing.d10px(),
             InkWell(
                 onTap: (){
+
                   model.selectDate(context);
 
                 },child:Container(
@@ -214,6 +215,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
                     Icon(Icons.date_range,color: AppColor.primaryBlue,)
                   ],
                 ))),
+
 
 
             VerticalSpacing.d15px(),
@@ -263,6 +265,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
 
                   "Cancel",
                   width: 145,
+                  borderRadius: BorderRadius.all(const Radius.circular(7)),
                   borderColor:  Colors.red,
                   color: Colors.red,
                   textStyle: TextStyle(color: AppColor.white,fontSize:18),
@@ -277,6 +280,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
 
                   "Submit",
                   width: 145,
+                  borderRadius: BorderRadius.all(const Radius.circular(7)),
                   borderColor:  Colors.green,
                   textStyle: TextStyle(color: AppColor.white,fontSize:18),
 
