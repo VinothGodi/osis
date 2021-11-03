@@ -92,7 +92,7 @@ class _DocumentSopState extends State<DocumentSop> {
 
 
                       },
-                      child: new Text("FLOW CHART PDF",textScaleFactor: 1,style: AppTextStyle.subtitle6,)),
+                      child: new Text("FLOW CHART PDF",textScaleFactor: 1,style:data?.flowchartpath?.isEmpty==true? AppTextStyle.subtitle6:AppTextStyle.subtitle9,)),
                   InkWell(
                       onTap:(){
                         if(data!.documentpath!.isEmpty){
@@ -105,7 +105,7 @@ class _DocumentSopState extends State<DocumentSop> {
 
 
                       },
-                      child: new Text("DOCUMENT PDF",textScaleFactor: 1,style: AppTextStyle.subtitle6,)),
+                      child: new Text("DOCUMENT PDF",textScaleFactor: 1,style:data?.documentpath?.isEmpty==true? AppTextStyle.subtitle6:AppTextStyle.subtitle9,)),
                 ],
               )
 

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:osis/model/acknowledge_model.dart';
 import 'package:osis/model/code_conduct_model.dart';
 import 'package:osis/model/eannounce_imge_model.dart';
 import 'package:osis/model/eannounce_model.dart';
@@ -245,7 +246,17 @@ class Api extends ApiBase {
     return null;
 
   }
+  Future<AcknownledeModel?> getAcknownledApi(String ?id) async {
 
+
+    final response = await sendAsync(ApiMethod.PUT, 'http://lmsapi.awnsys.net:88//api/announcements/save?id=$id', null,authentication: true);
+    if (response!=null){
+
+      return AcknownledeModel.fromJson(json.decode(response.body));
+    }
+    return null;
+
+  }
 
   Future<ELeaveStatusModel?> getLeaveStatusApi() async {
 

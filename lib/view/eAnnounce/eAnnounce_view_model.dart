@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:osis/core/enums/viewstate.dart';
 import 'package:osis/helper/base_view_model.dart';
+import 'package:osis/model/acknowledge_model.dart';
 import 'package:osis/model/eannounce_imge_model.dart';
 import 'package:osis/model/eannounce_model.dart';
 import 'package:osis/model/ennounce_pdf_model.dart';
@@ -15,6 +16,8 @@ class EAnnounceViewModel extends BaseViewModel{
   EAnnouncePdfModel ?eAnnouncePdfModel;
 
   EAnnounceImageModel ?eAnnounceImageModel;
+
+  AcknownledeModel? acknownledeModel;
 
 
   init(BuildContext context) async{
@@ -53,6 +56,12 @@ class EAnnounceViewModel extends BaseViewModel{
     eAnnounceImageModel = await  api.getEnnounceImageApi(id);
 
     setState(ViewState.Idle);
+
+
+  }
+  acknowledge(String ?id) async{
+
+    acknownledeModel = await api.getAcknownledApi(id);
 
 
   }

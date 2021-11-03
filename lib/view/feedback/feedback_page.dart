@@ -132,7 +132,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
 
 
                 },
-                child: new Text("IMAGE",textScaleFactor: 1,style: AppTextStyle.subtitle9,)),
+                child: new Text("IMAGE",textScaleFactor: 1,style: data?.feedbackimage?.isEmpty==true?AppTextStyle.subtitle6:AppTextStyle.subtitle9,)),
 
 
 

@@ -4,9 +4,12 @@ import 'package:osis/core/res/colors.dart';
 import 'package:osis/core/res/spacing.dart';
 import 'package:osis/core/res/styles.dart';
 import 'package:osis/model/eannounce_model.dart';
+import 'package:osis/service/shared/dialog_service.dart';
+import 'package:osis/widgets/alert_dialog.dart';
 import 'package:osis/widgets/base_view.dart';
 import 'package:osis/model/ennounce_pdf_model.dart';
 import 'package:flutter_html/flutter_html.dart';
+import '../../locator.dart';
 import '../../router.dart';
 import 'eAnnounce_view_model.dart';
 
@@ -17,6 +20,7 @@ class EAnnouncePage extends StatefulWidget{
 }
 
 class _EAnnouncePageState extends State<EAnnouncePage> {
+  final GlobalKey<State> _keyLoader = new GlobalKey<State>();
   @override
   Widget build(BuildContext context) {
 
@@ -45,14 +49,14 @@ class _EAnnouncePageState extends State<EAnnouncePage> {
 
                   itemBuilder: (BuildContext context,int index){
 
-                    return codeConductWidget(model.eAnnounceModel?.data?[index], context);
+                    return codeConductWidget(model.eAnnounceModel?.data?[index], context,model);
 
                   })
           ),
 
         ));
   }
-  codeConductWidget(Data? data, BuildContext context){
+  codeConductWidget(Data? data, BuildContext context, EAnnounceViewModel model){
 
     return Container(
         width: double.infinity,
@@ -101,11 +105,23 @@ class _EAnnouncePageState extends State<EAnnouncePage> {
                ),
 
                InkWell(
-                 onTap:(){
-                   Navigator.pushNamed(context, Routes.eAnnounceImagePage,arguments:data?.ancecode );
+                 onTap:() async{
+
+                   if(data?.empack=="0"){
+
+
+                   Dialogs.showLoadingDialog(context, _keyLoader);
+                  await model.acknowledge(data?.ancecode);
+                   FocusScope.of(context).requestFocus(new FocusNode());
+                   Navigator.of(context,rootNavigator: true).pop();
+                   await locator<DialogService>().showDialog(description: model.acknownledeModel!.responseMessage.toString());
+                   await model.init(context);
+
+                   }
+
                  },
                  child: Container(
-                     child: new Text(data?.empack=="0"?"Acknowledge":"Acknowledged",textScaleFactor: 1,style: data?.empack=="0"?AppTextStyle.subtitle9:AppTextStyle.subtitle6,)),
+                     child: new Text(data?.empack=="0"?"Acknowledge":"Acknowledged",textScaleFactor: 1,style: data?.empack=="0"?AppTextStyle.subtitle6:AppTextStyle.subtitle9,)),
                ),
 
 

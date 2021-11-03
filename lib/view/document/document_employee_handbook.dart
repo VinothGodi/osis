@@ -90,7 +90,7 @@ class _DocumentEmployeeHandbookState extends State<DocumentEmployeeHandbook> {
 
 
                   },
-                  child: new Text("DOCUMENT PDF",textScaleFactor: 1,style: AppTextStyle.subtitle6,)),
+                  child: new Text("DOCUMENT PDF",textScaleFactor: 1,style:data?.documentpath?.isEmpty==true? AppTextStyle.subtitle6:AppTextStyle.subtitle9,)),
 
 
 

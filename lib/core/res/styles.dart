@@ -142,6 +142,12 @@ class AppTextStyle {
       fontWeight: FontWeight.w700,
       color: AppColor.primaryBlue
   );
+
+  static  TextStyle subtitle11 = TextStyle(  // Bold Text
+      fontSize: AppFontSize.dp16,
+      fontWeight: FontWeight.w700,
+      color: AppColor.primaryBlue
+  );
   static const TextStyle subtitle6 = TextStyle(  // Sub Text Color // Regular Text // font size 16
       fontSize: AppFontSize.dp16,
       fontWeight: FontWeight.w400,
