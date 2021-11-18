@@ -70,8 +70,11 @@ class _FeedBackPageState extends State<FeedBackPage> {
               Expanded(
                 child: Container(
                   child: TabBarView(children: [
-                    model.state == ViewState.Busy?Center(child: CircularProgressIndicator()):  model.feedBackModel?.data==null?Center(child:
-                    new Text("No Data",textScaleFactor: 1,),): ListView.builder(
+                    model.state == ViewState.Busy?Center(child: CircularProgressIndicator()):  model.feedBackModel?.data==null?
+                    Container(
+                      height: MediaQuery.of(context).size.height,
+                      alignment: Alignment.center,
+                      child:new Text("No Data",textScaleFactor: 1,style: TextStyle(fontSize: 22,),),): ListView.builder(
                         shrinkWrap: true,
                         primary: false,
                         itemCount: model.feedBackModel?.data?.length,

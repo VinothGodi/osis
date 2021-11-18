@@ -36,8 +36,10 @@ class _DocumentSopState extends State<DocumentSop> {
 
           ),
           body: model.state == ViewState.Busy?Center(child: CircularProgressIndicator()):SingleChildScrollView(
-            child: model.sopModel?.error!=null?Center(child:
-              new Text("No Data",textScaleFactor: 1,),):ListView.builder(
+            child: model.sopModel?.error!=null?Container(
+              height: MediaQuery.of(context).size.height/1.5,
+              alignment: Alignment.center,
+              child:new Text("No Data",textScaleFactor: 1,style: TextStyle(fontSize: 22,),),):ListView.builder(
               shrinkWrap: true,
                 primary: false,
                 itemCount: model.sopModel?.data?.length,

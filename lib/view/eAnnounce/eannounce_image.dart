@@ -41,8 +41,10 @@ class _EAnnounceImagePageState extends State<EAnnounceImagePage> {
 
           ),
           body: model.state == ViewState.Busy?Center(child: CircularProgressIndicator()):SingleChildScrollView(
-              child: model.eAnnounceImageModel?.error!=null?Center(child:
-              new Text("No Data",textScaleFactor: 1,),):
+              child: model.eAnnounceImageModel?.error!=null?Container(
+                height: MediaQuery.of(context).size.height/1.5,
+                alignment: Alignment.center,
+                child:new Text("No Data",textScaleFactor: 1,style: TextStyle(fontSize: 22,),),):
 
               Container(
                 height: double.maxFinite,

@@ -62,8 +62,11 @@ class _ELeavePageState extends State<ELeavePage> {
                 Expanded(
                   child: Container(
                     child: TabBarView(children: [
-                      model.state == ViewState.Busy?Center(child: CircularProgressIndicator()):  model.leaveDetailModel?.data==null?Center(child:
-                      new Text("No Data",textScaleFactor: 1,),): ListView.builder(
+                      model.state == ViewState.Busy?Center(child: CircularProgressIndicator()):  model.leaveDetailModel?.data==null?
+                      Container(
+                        height: MediaQuery.of(context).size.height/1.5,
+                        alignment: Alignment.center,
+                        child:new Text("No Data",textScaleFactor: 1,style: TextStyle(fontSize: 22,),),): ListView.builder(
                           shrinkWrap: true,
                           primary: false,
                           itemCount: model.leaveDetailModel?.data?.length,
@@ -73,8 +76,11 @@ class _ELeavePageState extends State<ELeavePage> {
                             return leaveDetailList(model.leaveDetailModel?.data?[index]);
 
                           }),
-                      model.state == ViewState.Busy?Center(child: CircularProgressIndicator()):  model.eLeaveStatusModel?.data==null?Center(child:
-                      new Text("No Data",textScaleFactor: 1,),): ListView.builder(
+                      model.state == ViewState.Busy?Center(child: CircularProgressIndicator()):  model.eLeaveStatusModel?.data==null?
+                      Container(
+                        height: MediaQuery.of(context).size.height/1.5,
+                        alignment: Alignment.center,
+                        child:new Text("No Data",textScaleFactor: 1,style: TextStyle(fontSize: 22,),),): ListView.builder(
                           shrinkWrap: true,
                           primary: false,
                           itemCount: model.eLeaveStatusModel?.data?.length,
